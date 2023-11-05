@@ -1,0 +1,12 @@
+.bundle
+android
+ios
+vendor
+.eslintrc.js
+.prettier.js
+.watchmanconfig
+babel.config.js
+Gemfile
+Gemfile.lock
+jest.config.js
+metro.config.js

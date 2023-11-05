@@ -1,0 +1,40 @@
+{
+    "extends": "@tsconfig/react-native/tsconfig.json",
+    "compilerOptions": {
+        "target": "ES2022",
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "useUnknownInCatchVariables": false,
+        "skipLibCheck": true,
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "strict": true,
+        "noFallthroughCasesInSwitch": true,
+        "module": "ESNext",
+        "moduleResolution": "node",
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "noEmit": true,
+        "jsx": "preserve",
+        "sourceMap": true,
+        "importHelpers": true,
+        "declaration": true,
+        "rootDir": ".",
+        "baseUrl": ".",
+        "paths": {
+            "@/*": ["./*"],
+            "src/*": ["./src/*"]
+        },
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "noImplicitReturns": true,
+        "allowJs": false,
+        "forceConsistentCasingInFileNames": false,
+        "experimentalDecorators": true,
+        "downlevelIteration": true,
+        "incremental": true
+    },
+    "include": ["index.js", ".eslintrc.js", "**/*.ts", "**/*.tsx"],
+    "exclude": ["node_modules", "android", "ios", ".bundle"]
+}
