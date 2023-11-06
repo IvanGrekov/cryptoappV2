@@ -9,7 +9,14 @@ import Header from '../header/Header';
 import IndicatorWrapper from '../indicator-wrapper/IndicatorWrapper';
 
 export default function AppContent(): JSX.Element {
-    const { coinList, isLoading, error, getMoreCoins } = useCoinList();
+    const {
+        coinList,
+        isLoading,
+        isRefreshing,
+        error,
+        getMoreCoins,
+        refreshCoinList,
+    } = useCoinList();
 
     return (
         <Box style={styles.contentBox}>
@@ -38,7 +45,9 @@ export default function AppContent(): JSX.Element {
                 <CoinList
                     coinList={coinList}
                     isLoading={isLoading}
+                    isRefreshing={isRefreshing}
                     getMoreCoins={getMoreCoins}
+                    refreshCoinList={refreshCoinList}
                 />
             </Box>
         </Box>

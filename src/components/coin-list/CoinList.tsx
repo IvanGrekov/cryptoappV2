@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, RefreshControl } from 'react-native';
 
 import { FlatList } from 'native-base';
 
@@ -10,13 +10,17 @@ import ListSeparator from './ListSeparator';
 interface ICoinsListProps {
     coinList: TCoinList;
     isLoading: boolean;
+    isRefreshing: boolean;
     getMoreCoins: () => Promise<void>;
+    refreshCoinList: () => Promise<void>;
 }
 
 export default function CoinList({
     coinList,
     isLoading,
+    isRefreshing,
     getMoreCoins,
+    refreshCoinList,
 }: ICoinsListProps): JSX.Element {
     const renderItem = ({
         item,
@@ -29,7 +33,7 @@ export default function CoinList({
     };
 
     const createKeyExtractor = (item: ICoin): string => {
-        return `${item.id}${item.price}`;
+        return item.id;
     };
 
     const onEndReached = (): void => {
@@ -40,6 +44,12 @@ export default function CoinList({
 
     return (
         <FlatList
+            refreshControl={
+                <RefreshControl
+                    refreshing={isRefreshing}
+                    onRefresh={refreshCoinList}
+                />
+            }
             style={styles.list}
             data={coinList}
             onEndReachedThreshold={0.5}

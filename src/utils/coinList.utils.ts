@@ -4,14 +4,14 @@ import { getCoinsList as getCoinsListQuery } from '../api/coinList';
 import { MAX_PAGE_NUMBER } from '../api/coinList/constants';
 import { ICoin } from '../types/coinList';
 
-type TGetCoinListQuery = (args: {
+type TGetCoinList = (args: {
     setIsLoading: Dispatch<SetStateAction<boolean>>;
     setCoinList: Dispatch<SetStateAction<ICoin[]>>;
     setPageNumber: Dispatch<SetStateAction<number>>;
     setError: Dispatch<SetStateAction<string>>;
 }) => Promise<void>;
 
-export const getCoinList: TGetCoinListQuery = async ({
+export const getCoinList: TGetCoinList = async ({
     setIsLoading,
     setCoinList,
     setPageNumber,
@@ -67,5 +67,35 @@ export const getMoreCoins: TGetMoreCoins = async ({
         setError('Something went wrong');
     } finally {
         setIsLoading(false);
+    }
+};
+
+type TRefreshCoinList = (args: {
+    setIsRefreshing: Dispatch<SetStateAction<boolean>>;
+    setCoinList: Dispatch<SetStateAction<ICoin[]>>;
+    setPageNumber: Dispatch<SetStateAction<number>>;
+    setError: Dispatch<SetStateAction<string>>;
+}) => Promise<void>;
+
+export const refreshCoinList: TRefreshCoinList = async ({
+    setIsRefreshing,
+    setCoinList,
+    setPageNumber,
+    setError,
+}) => {
+    try {
+        setIsRefreshing(true);
+        const result = await getCoinsListQuery();
+
+        if (Array.isArray(result)) {
+            setCoinList(result);
+            setPageNumber(1);
+        } else {
+            setError(result.errorMessage);
+        }
+    } catch {
+        setError('Something went wrong');
+    } finally {
+        setIsRefreshing(false);
     }
 };
