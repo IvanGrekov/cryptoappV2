@@ -16,13 +16,13 @@ function App(): JSX.Element {
     return (
         <NativeBaseProvider>
             <SafeAreaView>
-            <StatusBar
-                barStyle="dark-content"
-                backgroundColor={styleVariables.bgColor}
-            />
-            <Box style={styles.appWrapper}>
-                <AppContent />
-            </Box>
+                <StatusBar
+                    barStyle="dark-content"
+                    backgroundColor={styleVariables.bgColor}
+                />
+                <Box style={styles.appWrapper}>
+                    <AppContent />
+                </Box>
             </SafeAreaView>
         </NativeBaseProvider>
     );
