@@ -16,11 +16,15 @@ export const getCoinsList = (page = 0): Promise<TCoinList | IError> => {
                 return formatCoinList(parsedResponse.Data as TApiCoinList);
             }
 
-            return parsedResponse as IError;
+            return {
+                errorMessage: 'Something went wrong',
+            };
         })
         .catch((e) => {
             console.error(e);
 
-            return [];
+            return {
+                errorMessage: 'Something went wrong',
+            };
         });
 };

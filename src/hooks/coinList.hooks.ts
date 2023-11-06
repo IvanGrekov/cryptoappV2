@@ -1,8 +1,7 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
-import { getCoinsList as getCoinsListQuery } from '../api/coinList';
-import { MAX_PAGE_NUMBER } from '../api/coinList/constants';
 import { ICoin } from '../types/coinList';
+import { getCoinList, getMoreCoins } from '../utils/coinList.utils';
 
 type TUseCoinList = () => {
     coinList: ICoin[];
@@ -15,56 +14,28 @@ export const useCoinList: TUseCoinList = () => {
     const [coinList, setCoinList] = useState<ICoin[]>([]);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState('');
-    const [pageNumber, setPageNumber] = useState(1);
-
-    const getCoinList = useCallback(async (): Promise<void> => {
-        try {
-            setIsLoading(true);
-            const result = await getCoinsListQuery();
-
-            if (Array.isArray(result)) {
-                setCoinList(result);
-                setPageNumber((prev) => ++prev);
-            } else {
-                setError("You've exceeded the Rate Limit");
-            }
-        } catch {
-            setError('Something went wrong');
-        } finally {
-            setIsLoading(false);
-        }
-    }, []);
+    const [pageNumber, setPageNumber] = useState(0);
 
     useEffect(() => {
-        getCoinList();
-    }, [getCoinList]);
-
-    const getMoreCoins = useCallback(async (): Promise<void> => {
-        if (pageNumber === MAX_PAGE_NUMBER) {
-            return;
-        }
-
-        try {
-            setIsLoading(true);
-            const result = await getCoinsListQuery(pageNumber);
-
-            if (Array.isArray(result)) {
-                setCoinList((prev) => [...prev, ...result]);
-                setPageNumber((prev) => ++prev);
-            } else {
-                setError("You've exceeded the Rate Limit");
-            }
-        } catch {
-            setError('Something went wrong');
-        } finally {
-            setIsLoading(false);
-        }
-    }, [pageNumber]);
+        getCoinList({
+            setIsLoading,
+            setCoinList,
+            setPageNumber,
+            setError,
+        });
+    }, []);
 
     return {
         coinList,
         isLoading,
         error,
-        getMoreCoins,
+        getMoreCoins: () =>
+            getMoreCoins({
+                pageNumber,
+                setIsLoading,
+                setCoinList,
+                setPageNumber,
+                setError,
+            }),
     };
 };
