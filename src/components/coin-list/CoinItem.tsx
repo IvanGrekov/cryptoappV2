@@ -2,9 +2,10 @@ import { StyleSheet } from 'react-native';
 
 import { List, HStack, Image } from 'native-base';
 
-import { styleVariables } from '../../constants/style';
+import { STYLE_VARIABLES } from '../../constants/style';
 import { ICoin } from '../../types/coinList';
 
+import AddToFavoritesButton from './AddToFavoritesButton';
 import CoinDetails from './CoinDetails';
 import CoinPrice from './CoinPrice';
 
@@ -20,7 +21,7 @@ export default function CoinItem({ coin }: ICoinItemProps): JSX.Element {
             <HStack style={styles.itemContent}>
                 <HStack
                     style={styles.itemDetails}
-                    space={styleVariables.mdSpacing}
+                    space={STYLE_VARIABLES.mdSpacing}
                 >
                     <Image
                         source={{ uri: `${imageUrl}` }}
@@ -31,7 +32,10 @@ export default function CoinItem({ coin }: ICoinItemProps): JSX.Element {
                     <CoinDetails coin={coin} />
                 </HStack>
 
-                <CoinPrice coin={coin} />
+                <HStack space={STYLE_VARIABLES.smSpacing}>
+                    <CoinPrice coin={coin} />
+                    <AddToFavoritesButton />
+                </HStack>
             </HStack>
         </List.Item>
     );
@@ -40,8 +44,8 @@ export default function CoinItem({ coin }: ICoinItemProps): JSX.Element {
 const styles = StyleSheet.create({
     item: {
         width: '100%',
-        paddingHorizontal: styleVariables.xsPadding,
-        paddingVertical: styleVariables.mdPadding,
+        paddingHorizontal: STYLE_VARIABLES.xsPadding,
+        paddingVertical: STYLE_VARIABLES.mdPadding,
     },
     itemContent: {
         width: '100%',
@@ -51,8 +55,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     image: {
-        width: styleVariables.coinImgSize,
-        height: styleVariables.coinImgSize,
-        borderRadius: styleVariables.coinImgSize / 2,
+        width: STYLE_VARIABLES.coinImgSize,
+        height: STYLE_VARIABLES.coinImgSize,
+        borderRadius: STYLE_VARIABLES.coinImgSize / 2,
     },
 });

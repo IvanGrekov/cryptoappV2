@@ -10,15 +10,15 @@ import { StyleSheet, SafeAreaView } from 'react-native';
 import { NativeBaseProvider, StatusBar, Box } from 'native-base';
 
 import AppContent from './src/components/app-content/AppContent';
-import { styleVariables } from './src/constants/style';
+import { THEME, STYLE_VARIABLES } from './src/constants/style';
 
 function App(): JSX.Element {
     return (
-        <NativeBaseProvider>
+        <NativeBaseProvider theme={THEME}>
             <SafeAreaView>
                 <StatusBar
                     barStyle="dark-content"
-                    backgroundColor={styleVariables.bgColor}
+                    backgroundColor={STYLE_VARIABLES.bgColor}
                 />
                 <Box style={styles.appWrapper}>
                     <AppContent />
@@ -31,7 +31,7 @@ function App(): JSX.Element {
 const styles = StyleSheet.create({
     appWrapper: {
         height: '100%',
-        backgroundColor: styleVariables.bgColor,
+        backgroundColor: STYLE_VARIABLES.bgColor,
     },
 });
 

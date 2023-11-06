@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 
 import { Box } from 'native-base';
 
-import { styleVariables } from '../../constants/style';
+import { STYLE_VARIABLES } from '../../constants/style';
 
 export default function ListSeparator(): JSX.Element {
     return <Box style={styles.listSepartor} />;
@@ -12,6 +12,6 @@ export default function ListSeparator(): JSX.Element {
 const styles = StyleSheet.create({
     listSepartor: {
         height: 1,
-        backgroundColor: styleVariables.grayOpacity,
+        backgroundColor: STYLE_VARIABLES.grayOpacity,
     },
 });

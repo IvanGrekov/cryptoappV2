@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 
 import { VStack, Text } from 'native-base';
 
-import { styleVariables } from '../../constants/style';
+import { STYLE_VARIABLES } from '../../constants/style';
 import { ICoin } from '../../types/coinList';
 
 import { roundPrice, roundMarketCap } from './utils/coinItem.utils';
@@ -16,7 +16,7 @@ export default function CoinPrice({ coin }: ICoinPriceProps): JSX.Element {
     const { marketCap, price } = coin;
 
     return (
-        <VStack space={styleVariables.smSpacing}>
+        <VStack space={STYLE_VARIABLES.smSpacing}>
             <Text style={styles.price}>{`$${roundPrice(price)}`}</Text>
 
             <Text style={styles.marketCap}>
@@ -28,7 +28,7 @@ export default function CoinPrice({ coin }: ICoinPriceProps): JSX.Element {
 
 const styles = StyleSheet.create({
     price: {
-        fontSize: styleVariables.headingFontSize,
+        fontSize: STYLE_VARIABLES.headingFontSize,
         fontWeight: 'bold',
         textAlign: 'right',
     },

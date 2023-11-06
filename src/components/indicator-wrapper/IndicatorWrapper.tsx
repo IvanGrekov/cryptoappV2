@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 
 import { Box } from 'native-base';
 
-import { styleVariables } from '../../constants/style';
+import { STYLE_VARIABLES } from '../../constants/style';
 
 interface IIndicatorWrapperProps extends PropsWithChildren {
     style?: Record<string, unknown>;
@@ -28,10 +28,10 @@ export default function IndicatorWrapper({
                 { translateY: -(SIZE / 2) },
             ],
             padding: 10,
-            borderRadius: styleVariables.mdRadius,
+            borderRadius: STYLE_VARIABLES.mdRadius,
             justifyContent: 'center',
             alignItems: 'center',
-            backgroundColor: styleVariables.fgOpacity,
+            backgroundColor: STYLE_VARIABLES.fgOpacity,
             ...style,
         },
     });

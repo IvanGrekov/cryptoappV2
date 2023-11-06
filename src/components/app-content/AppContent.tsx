@@ -2,7 +2,7 @@ import { ActivityIndicator, StyleSheet } from 'react-native';
 
 import { Box, Text } from 'native-base';
 
-import { styleVariables } from '../../constants/style';
+import { STYLE_VARIABLES } from '../../constants/style';
 import { useCoinList } from '../../hooks/coinList.hooks';
 import CoinList from '../coin-list/CoinList';
 import Header from '../header/Header';
@@ -27,7 +27,7 @@ export default function AppContent(): JSX.Element {
                     <IndicatorWrapper>
                         <ActivityIndicator
                             size="large"
-                            color={styleVariables.bgColor}
+                            color={STYLE_VARIABLES.bgColor}
                         />
                     </IndicatorWrapper>
                 )}
@@ -35,7 +35,7 @@ export default function AppContent(): JSX.Element {
                 {!!error && (
                     <IndicatorWrapper
                         style={{
-                            backgroundColor: styleVariables.redOpacity,
+                            backgroundColor: STYLE_VARIABLES.redOpacity,
                         }}
                     >
                         <Text style={styles.error}>{error}</Text>
@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     error: {
-        color: styleVariables.bgColor,
+        color: STYLE_VARIABLES.bgColor,
         fontWeight: 'bold',
         textAlign: 'center',
     },
