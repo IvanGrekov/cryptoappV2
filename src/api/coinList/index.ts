@@ -8,7 +8,11 @@ export const getCoinsList = (page = 0): Promise<TCoinList | IError> => {
     const URL = `${BASE_URL}${END_POINTS.getCryptoList}`;
     const PAGINATION_PARAMS = `limit=${COINS_PER_PAGE}&page=${page}`;
 
-    return fetch(`${URL}?tsym=${CURRENCY}&${PAGINATION_PARAMS}`)
+    return fetch(`${URL}?tsym=${CURRENCY}&${PAGINATION_PARAMS}`, {
+        headers: {
+            Authorization: `Apikey ${process.env.COIN_LIST_API_KEY}`,
+        },
+    })
         .then(async (response) => {
             const parsedResponse = await response.json();
 
