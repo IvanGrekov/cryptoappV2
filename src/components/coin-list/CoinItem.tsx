@@ -14,7 +14,7 @@ interface ICoinItemProps {
 }
 
 export default function CoinItem({ coin }: ICoinItemProps): JSX.Element {
-    const { name, imageUrl } = coin;
+    const { name, imageUrl, symbol } = coin;
 
     return (
         <List.Item style={styles.item}>
@@ -34,7 +34,7 @@ export default function CoinItem({ coin }: ICoinItemProps): JSX.Element {
 
                 <HStack space={STYLE_VARIABLES.smSpacing}>
                     <CoinPrice coin={coin} />
-                    <AddToFavoritesButton />
+                    <AddToFavoritesButton symbol={symbol} />
                 </HStack>
             </HStack>
         </List.Item>
