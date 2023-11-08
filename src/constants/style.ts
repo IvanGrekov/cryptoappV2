@@ -83,6 +83,22 @@ export const THEME = extendTheme({
     colors: COLORS,
     fontSizes: FONT_SIZES,
     size: SIZE,
+    components: {
+        Button: {
+            variants: {
+                solid: {
+                    bg: COLORS.primary[900],
+                    borderRadius: SIZE['2'],
+                    _pressed: {
+                        bg: COLORS.primaryOpacity[900],
+                    },
+                    _text: {
+                        color: COLORS.secondary[900],
+                    },
+                },
+            },
+        },
+    },
 });
 
 export const STYLE_VARIABLES = {

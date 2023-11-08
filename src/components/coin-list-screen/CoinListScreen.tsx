@@ -1,11 +1,7 @@
-import { ActivityIndicator, StyleSheet } from 'react-native';
-
-import { Text } from 'native-base';
-
-import { STYLE_VARIABLES } from '../../constants/style';
 import { useCoinList } from '../../hooks/coinList.hooks';
 import CoinList from '../coin-list/CoinList';
-import IndicatorWrapper from '../indicator-wrapper/IndicatorWrapper';
+import ErrorIndicator from '../error-indicator/ErrorIndicator';
+import LoadingIndicator from '../loading-indicator/LoadingIndicator';
 import ScreenContainer from '../screen-container/ScreenContainer';
 
 export default function CoinListScreen(): JSX.Element {
@@ -20,24 +16,9 @@ export default function CoinListScreen(): JSX.Element {
 
     return (
         <ScreenContainer>
-            {!!isLoading && (
-                <IndicatorWrapper>
-                    <ActivityIndicator
-                        size="large"
-                        color={STYLE_VARIABLES.bgColor}
-                    />
-                </IndicatorWrapper>
-            )}
+            <LoadingIndicator isLoading={isLoading} />
 
-            {!!error && (
-                <IndicatorWrapper
-                    style={{
-                        backgroundColor: STYLE_VARIABLES.redOpacity,
-                    }}
-                >
-                    <Text style={styles.error}>{error}</Text>
-                </IndicatorWrapper>
-            )}
+            <ErrorIndicator error={error} />
 
             <CoinList
                 coinList={coinList}
@@ -49,11 +30,3 @@ export default function CoinListScreen(): JSX.Element {
         </ScreenContainer>
     );
 }
-
-const styles = StyleSheet.create({
-    error: {
-        color: STYLE_VARIABLES.bgColor,
-        fontWeight: 'bold',
-        textAlign: 'center',
-    },
-});

@@ -1,42 +1,52 @@
-import { useState, useEffect } from 'react';
-import { StyleSheet } from 'react-native';
+import { Text, Button } from 'native-base';
 
-import { useIsFocused } from '@react-navigation/native';
-import { Text } from 'native-base';
-
-import { STYLE_VARIABLES } from '../../constants/style';
-import { getFavoriteList } from '../../utils/favoriteList.utils';
+import { useFavoriteCoins } from '../../hooks/favoriteCoins.hooks';
+import { TRootTabScreenProps, ERouteNames } from '../../types/routes';
+import EmptyStateIndicator from '../empty-state-indicator/EmptyStateIndicator';
+import ErrorIndicator from '../error-indicator/ErrorIndicator';
+import LoadingIndicator from '../loading-indicator/LoadingIndicator';
 import ScreenContainer from '../screen-container/ScreenContainer';
 
-export default function FavoriteListScreen(): JSX.Element {
-    const isFocused = useIsFocused();
-    const [favoriteList, setFavoriteList] = useState<string[]>([]);
+type TFavoriteLisTRootTabScreenProps = TRootTabScreenProps<'Favorites'>;
 
-    useEffect(() => {
-        getFavoriteList().then((list: string[]) => setFavoriteList(list));
-    }, [isFocused]);
+export default function FavoriteListScreen({
+    navigation,
+}: TFavoriteLisTRootTabScreenProps): JSX.Element {
+    const { favoriteList, isLoading, error } = useFavoriteCoins();
+
+    if (!favoriteList) {
+        return (
+            <ScreenContainer>
+                <LoadingIndicator />
+            </ScreenContainer>
+        );
+    }
 
     if (!favoriteList.length) {
         return (
             <ScreenContainer>
-                <Text style={styles.error}>No favorite coins</Text>
+                <EmptyStateIndicator text="No Favorite Coins">
+                    <Button
+                        onPress={(): void => {
+                            navigation.navigate(ERouteNames.LIST);
+                        }}
+                    >
+                        Coins List
+                    </Button>
+                </EmptyStateIndicator>
             </ScreenContainer>
         );
     }
 
     return (
         <ScreenContainer>
+            <LoadingIndicator isLoading={isLoading} />
+
+            <ErrorIndicator error={error} />
+
             {favoriteList.map((favorite: string) => (
                 <Text key={favorite}>{favorite}</Text>
             ))}
         </ScreenContainer>
     );
 }
-
-const styles = StyleSheet.create({
-    error: {
-        color: STYLE_VARIABLES.bgColor,
-        fontWeight: 'bold',
-        textAlign: 'center',
-    },
-});

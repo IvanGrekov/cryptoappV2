@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 
+import { useIsFocused } from '@react-navigation/native';
+
 import { ICoin } from '../types/coinList';
 import {
     getCoinList,
@@ -17,6 +19,8 @@ type TUseCoinList = () => {
 };
 
 export const useCoinList: TUseCoinList = () => {
+    const isFocused = useIsFocused();
+
     const [coinList, setCoinList] = useState<ICoin[]>([]);
     const [isLoading, setIsLoading] = useState(false);
     const [isRefreshing, setIsRefreshing] = useState(false);
@@ -24,13 +28,20 @@ export const useCoinList: TUseCoinList = () => {
     const [pageNumber, setPageNumber] = useState(0);
 
     useEffect(() => {
+        if (!isFocused) {
+            setCoinList([]);
+            setPageNumber(0);
+
+            return;
+        }
+
         getCoinList({
             setIsLoading,
             setCoinList,
             setPageNumber,
             setError,
         });
-    }, []);
+    }, [isFocused]);
 
     return {
         coinList,

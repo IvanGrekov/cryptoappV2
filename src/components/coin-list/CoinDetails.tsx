@@ -9,9 +9,13 @@ import { getCoinName } from './utils/coinItem.utils';
 
 interface ICoinDetailsProps {
     coin: ICoin;
+    isFavoriteList?: boolean;
 }
 
-export default function CoinDetails({ coin }: ICoinDetailsProps): JSX.Element {
+export default function CoinDetails({
+    coin,
+    isFavoriteList,
+}: ICoinDetailsProps): JSX.Element {
     const { name, symbol, marketCapRank } = coin;
 
     return (
@@ -19,9 +23,11 @@ export default function CoinDetails({ coin }: ICoinDetailsProps): JSX.Element {
             <Text style={styles.title}>{getCoinName({ name, symbol })}</Text>
 
             <HStack space={STYLE_VARIABLES.smSpacing}>
-                <Box style={styles.rankWrapper}>
-                    <Text style={styles.rank}>{marketCapRank}</Text>
-                </Box>
+                {!isFavoriteList && (
+                    <Box style={styles.rankWrapper}>
+                        <Text style={styles.rank}>{marketCapRank}</Text>
+                    </Box>
+                )}
 
                 <Text>{symbol.toUpperCase()}</Text>
             </HStack>

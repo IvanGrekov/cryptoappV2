@@ -11,9 +11,13 @@ import CoinPrice from './CoinPrice';
 
 interface ICoinItemProps {
     coin: ICoin;
+    isFavoriteList?: boolean;
 }
 
-export default function CoinItem({ coin }: ICoinItemProps): JSX.Element {
+export default function CoinItem({
+    coin,
+    isFavoriteList,
+}: ICoinItemProps): JSX.Element {
     const { name, imageUrl, symbol } = coin;
 
     return (
@@ -29,7 +33,7 @@ export default function CoinItem({ coin }: ICoinItemProps): JSX.Element {
                         style={styles.image}
                     />
 
-                    <CoinDetails coin={coin} />
+                    <CoinDetails coin={coin} isFavoriteList={isFavoriteList} />
                 </HStack>
 
                 <HStack space={STYLE_VARIABLES.smSpacing}>
