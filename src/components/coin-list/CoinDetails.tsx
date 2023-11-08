@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 import { VStack, Text, HStack, Box } from 'native-base';
 
-import { STYLE_VARIABLES, THEME } from '../../constants/style';
+import { STYLE_VARIABLES } from '../../constants/style';
 import { ICoin } from '../../types/coinList';
 
 import { getCoinName } from './utils/coinItem.utils';
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     },
     rankWrapper: {
         borderRadius: STYLE_VARIABLES.xsRadius,
-        backgroundColor: THEME.colors.gray[500],
+        backgroundColor: STYLE_VARIABLES.blackOpacity,
     },
     rank: {
         color: STYLE_VARIABLES.bgColor,

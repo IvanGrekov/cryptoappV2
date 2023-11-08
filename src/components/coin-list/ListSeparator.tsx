@@ -12,6 +12,6 @@ export default function ListSeparator(): JSX.Element {
 const styles = StyleSheet.create({
     listSepartor: {
         height: 1,
-        backgroundColor: STYLE_VARIABLES.grayOpacity,
+        backgroundColor: STYLE_VARIABLES.blackInvisible,
     },
 });

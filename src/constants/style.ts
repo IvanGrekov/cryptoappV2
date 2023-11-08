@@ -2,10 +2,10 @@ import { extendTheme } from 'native-base';
 
 const COLORS = {
     primary: {
-        900: '#DAFFFB',
+        900: '#AEDEFC',
     },
     primaryOpacity: {
-        900: 'rgba(218, 255, 251, 0.7)',
+        900: 'rgba(174, 222, 252, 0.7)',
     },
     secondary: {
         900: '#164863',
@@ -13,17 +13,8 @@ const COLORS = {
     secondaryOpacity: {
         900: 'rgba(22, 72, 99, 0.7)',
     },
-    red: {
-        900: '#f45050',
-    },
     redOpacity: {
         900: 'rgba(244, 80, 80, 0.7)',
-    },
-    gray: {
-        900: '#D8E3E7',
-    },
-    grayOpacity: {
-        900: 'rgba(216, 227, 231, 0.7)',
     },
 };
 
@@ -99,8 +90,14 @@ export const STYLE_VARIABLES = {
     bgOpacity: COLORS.primaryOpacity[900],
     fgColor: COLORS.secondary[900],
     fgOpacity: COLORS.secondaryOpacity[900],
+
+    red: THEME.colors.rose[600],
     redOpacity: COLORS.redOpacity[900],
-    grayOpacity: COLORS.grayOpacity[900],
+    gray: THEME.colors.gray[300],
+    grayOpacity: THEME.colors.gray[400],
+    black: THEME.colors.gray[900],
+    blackOpacity: 'rgba(0, 0, 0, 0.3)',
+    blackInvisible: 'rgba(0, 0, 0, 0.1)',
 
     mdPadding: SIZE['4.5'],
     smPadding: SIZE['3.5'],

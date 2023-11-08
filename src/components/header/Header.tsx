@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 
 import { Box, HStack, Text } from 'native-base';
 
-import { STYLE_VARIABLES, THEME } from '../../constants/style';
+import { STYLE_VARIABLES } from '../../constants/style';
 import { EImageSizeType } from '../../types/images';
 import Logo from '../logo/Logo';
 
@@ -21,9 +21,11 @@ export default function Header(): JSX.Element {
 const styles = StyleSheet.create({
     header: {
         padding: STYLE_VARIABLES.mdPadding,
+        borderBottomWidth: 1,
+        borderBottomColor: STYLE_VARIABLES.blackInvisible,
     },
     text: {
-        color: THEME.colors.gray[700],
+        color: STYLE_VARIABLES.black,
         fontSize: STYLE_VARIABLES.extraHeadingFontSize,
         lineHeight: STYLE_VARIABLES.extraHeadingFontSize,
         fontWeight: 'bold',

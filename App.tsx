@@ -1,30 +1,29 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
+import { SafeAreaView, StyleSheet } from 'react-native';
 
-import { StyleSheet, SafeAreaView } from 'react-native';
-
+import { NavigationContainer } from '@react-navigation/native';
 import { NativeBaseProvider, StatusBar, Box } from 'native-base';
 
-import AppContent from './src/components/app-content/AppContent';
+import Header from './src/components/header/Header';
 import { THEME, STYLE_VARIABLES } from './src/constants/style';
+import Routes from './src/routes';
 
 function App(): JSX.Element {
     return (
-        <NativeBaseProvider theme={THEME}>
-            <SafeAreaView>
-                <StatusBar
-                    barStyle="dark-content"
-                    backgroundColor={STYLE_VARIABLES.bgColor}
-                />
-                <Box style={styles.appWrapper}>
-                    <AppContent />
-                </Box>
-            </SafeAreaView>
-        </NativeBaseProvider>
+        <NavigationContainer>
+            <NativeBaseProvider theme={THEME}>
+                <SafeAreaView>
+                    <StatusBar
+                        barStyle="dark-content"
+                        backgroundColor={STYLE_VARIABLES.bgColor}
+                    />
+
+                    <Box style={styles.appWrapper}>
+                        <Header />
+                        <Routes />
+                    </Box>
+                </SafeAreaView>
+            </NativeBaseProvider>
+        </NavigationContainer>
     );
 }
 
