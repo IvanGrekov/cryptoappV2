@@ -1,4 +1,4 @@
-export interface IApiCoin {
+interface IApiCoin {
     CoinInfo: {
         Id: string;
         Name: string;
@@ -15,6 +15,21 @@ export interface IApiCoin {
 }
 
 export type TApiCoinList = IApiCoin[];
+
+interface IApiSymbol {
+    FROMSYMBOL: string;
+    PRICE: number;
+    MKTCAP: number;
+    IMAGEURL: string;
+}
+
+export type TApiSymbolList = {
+    RAW: {
+        [key: string]: {
+            USD: IApiSymbol;
+        };
+    };
+};
 
 export interface ICoin {
     id: string;

@@ -1,5 +1,9 @@
 import { COIN_IMAGES_URL } from '../../../constants/coinList';
-import { TApiCoinList, TCoinList } from '../../../types/coinList';
+import {
+    TApiCoinList,
+    TCoinList,
+    TApiSymbolList,
+} from '../../../types/coinList';
 
 export const formatCoinList = (data?: TApiCoinList): TCoinList => {
     if (!data) {
@@ -26,6 +30,26 @@ export const formatCoinList = (data?: TApiCoinList): TCoinList => {
             marketCap: MKTCAP,
         });
     });
+
+    return result;
+};
+
+export const formatSymbolList = (data: TApiSymbolList): TCoinList => {
+    const result: TCoinList = [];
+
+    for (const symbol of Object.values(data.RAW)) {
+        const { FROMSYMBOL, PRICE, MKTCAP, IMAGEURL } = symbol.USD;
+
+        result.push({
+            id: `${MKTCAP}`,
+            name: FROMSYMBOL,
+            fullName: FROMSYMBOL,
+            symbol: FROMSYMBOL,
+            imageUrl: `${COIN_IMAGES_URL}${IMAGEURL}`,
+            price: PRICE,
+            marketCap: MKTCAP,
+        });
+    }
 
     return result;
 };

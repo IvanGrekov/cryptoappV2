@@ -21,18 +21,38 @@ export const useFavoriteCoins: TUseFavoriteCoins = () => {
     const isFocused = useIsFocused();
 
     const [favoriteList, setFavoriteList] = useState<TFavoriteList>([]);
-    const [coinList] = useState<ICoin[]>([]);
+    const [coinList, setCoinList] = useState<ICoin[]>([]);
     const [isLoading] = useState(false);
     const [isRefreshing] = useState(false);
     const [error] = useState('');
-    const [pageNumber] = useState(0);
+    const [pageNumber, setPageNumber] = useState(0);
 
     useEffect(() => {
         if (!isFocused) {
-            return setFavoriteList(null);
+            setFavoriteList(null);
+            setCoinList([]);
+            setPageNumber(0);
+
+            return;
         }
 
         getFavoriteList().then((list: string[]) => setFavoriteList(list));
+    }, [isFocused]);
+
+    useEffect(() => {
+        if (!isFocused) {
+            setCoinList([]);
+            setPageNumber(0);
+
+            // return;
+        }
+
+        // getCoinList({
+        //     setIsLoading,
+        //     setCoinList,
+        //     setPageNumber,
+        //     setError,
+        // });
     }, [isFocused]);
 
     // TODO: remove (IG)
