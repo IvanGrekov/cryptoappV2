@@ -92,20 +92,30 @@ export const useFavoriteCoins: TUseFavoriteCoins = () => {
         });
     };
 
-    const refreshCoinList = (): Promise<void> => {
+    const refreshCoinList = async (): Promise<void> => {
         if (!favoriteList?.length) {
             return Promise.resolve();
         }
 
-        return refreshSymbolList({
-            symbols: getFavoriteListByPage({
-                favoriteList,
-            }),
-            setIsRefreshing,
-            setCoinList,
-            setPageNumber,
-            setError,
-        });
+        try {
+            setIsRefreshing(true);
+
+            const upToDateFavoriteList = await getFavoriteList();
+            setFavoriteList(upToDateFavoriteList);
+            await refreshSymbolList({
+                symbols: getFavoriteListByPage({
+                    favoriteList: upToDateFavoriteList,
+                }),
+                setIsRefreshing,
+                setCoinList,
+                setPageNumber,
+                setError,
+            });
+        } catch {
+            setError('Something went wrong');
+        } finally {
+            setIsRefreshing(false);
+        }
     };
 
     return {
