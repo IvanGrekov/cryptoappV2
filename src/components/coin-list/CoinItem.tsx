@@ -10,15 +10,18 @@ import { TRootTabsParamList, ERouteNames } from '../../types/routes';
 import AddToFavoritesButton from './AddToFavoritesButton';
 import CoinDetails from './CoinDetails';
 import CoinPrice from './CoinPrice';
+import { getPrevPagePath } from './utils/coinItem.utils';
 
 interface ICoinItemProps {
     coin: ICoin;
     isFavoriteList?: boolean;
+    isSearchList?: boolean;
 }
 
 export default function CoinItem({
     coin,
     isFavoriteList,
+    isSearchList,
 }: ICoinItemProps): JSX.Element {
     const navigation = useNavigation<NavigationProp<TRootTabsParamList>>();
 
@@ -27,7 +30,7 @@ export default function CoinItem({
     const onPress = (): void => {
         navigation.navigate(ERouteNames.DETAILS, {
             symbol,
-            prevPage: isFavoriteList ? ERouteNames.FAVORITES : ERouteNames.LIST,
+            prevPage: getPrevPagePath({ isFavoriteList, isSearchList }),
         });
     };
 

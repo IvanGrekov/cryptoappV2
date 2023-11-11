@@ -1,3 +1,5 @@
+import { ERouteNames, TDetailsPrevPage } from '../../../types/routes';
+
 const MAX_NAME_LENGTH = 12;
 
 type TGetCoinName = (args: { name: string; symbol: string }) => string;
@@ -24,4 +26,24 @@ export const roundPrice = (price: number): string => {
     }
 
     return price.toFixed(0);
+};
+
+type TGetPrevPagePath = (args: {
+    isSearchList?: boolean;
+    isFavoriteList?: boolean;
+}) => TDetailsPrevPage;
+
+export const getPrevPagePath: TGetPrevPagePath = ({
+    isSearchList,
+    isFavoriteList,
+}) => {
+    if (isSearchList) {
+        return ERouteNames.SEARCH;
+    }
+
+    if (isFavoriteList) {
+        return ERouteNames.FAVORITES;
+    }
+
+    return ERouteNames.LIST;
 };

@@ -6,6 +6,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import CoinDetailsScreen from '../components/coin-details-screen/CoinDetailsScreen';
 import CoinListScreenContent from '../components/coin-list-screen/CoinListScreen';
 import FavoriteListScreen from '../components/favorite-list-screen/FavoriteListScreen';
+import SearchScreen from '../components/search-screen/SearchScreen';
 import { TRootTabsParamList, ERouteNames } from '../types/routes';
 import {
     getStackNavigationOptions,
@@ -36,6 +37,14 @@ function HomeRoutes({ children }: PropsWithChildren): JSX.Element {
                 <Tab.Screen
                     name={ERouteNames.FAVORITES}
                     component={FavoriteListScreen}
+                    options={{
+                        headerShown: false,
+                    }}
+                />
+
+                <Tab.Screen
+                    name={ERouteNames.SEARCH}
+                    component={SearchScreen}
                     options={{
                         headerShown: false,
                     }}

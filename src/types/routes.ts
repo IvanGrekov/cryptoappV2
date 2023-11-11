@@ -5,15 +5,22 @@ export enum ERouteNames {
     LIST = 'List',
     FAVORITES = 'Favorites',
     DETAILS = 'Details',
+    SEARCH = 'Search',
 }
+
+export type TDetailsPrevPage =
+    | ERouteNames.FAVORITES
+    | ERouteNames.LIST
+    | ERouteNames.SEARCH;
 
 export type TRootTabsParamList = {
     Home: undefined;
     List: undefined;
     Favorites: undefined;
+    Search: undefined;
     Details: {
         symbol: string;
-        prevPage: ERouteNames.FAVORITES | ERouteNames.LIST;
+        prevPage: TDetailsPrevPage;
     };
 };
 

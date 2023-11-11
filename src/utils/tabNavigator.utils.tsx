@@ -1,6 +1,6 @@
 import { BottomTabNavigationOptions } from '@react-navigation/bottom-tabs';
 import { RouteProp, ParamListBase } from '@react-navigation/native';
-import { HamburgerIcon, FavouriteIcon } from 'native-base';
+import { HamburgerIcon, FavouriteIcon, SearchIcon } from 'native-base';
 
 import { STYLE_VARIABLES } from '../constants/style';
 import { ERouteNames } from '../types/routes';
@@ -18,11 +18,11 @@ const getTabNavigatorColor: TGetTabNavigatorColor = ({
         return STYLE_VARIABLES.grayOpacity;
     }
 
-    if (routeName === ERouteNames.LIST) {
-        return STYLE_VARIABLES.bgColor;
+    if (routeName === ERouteNames.FAVORITES) {
+        return STYLE_VARIABLES.red;
     }
 
-    return STYLE_VARIABLES.red;
+    return STYLE_VARIABLES.bgColor;
 };
 
 type TGetTabNavigatorIcon = (args: {
@@ -36,15 +36,17 @@ const getTabNavigatorIcon: TGetTabNavigatorIcon = ({
     focused,
     size,
 }) => {
-    if (routeName === ERouteNames.LIST) {
-        const iconColor = getTabNavigatorColor({ focused, routeName });
-
-        return <HamburgerIcon size={size} color={iconColor} />;
-    }
-
     const iconColor = getTabNavigatorColor({ focused, routeName });
 
-    return <FavouriteIcon size={size} color={iconColor} />;
+    if (routeName === ERouteNames.FAVORITES) {
+        return <FavouriteIcon size={size} color={iconColor} />;
+    }
+
+    if (routeName === ERouteNames.SEARCH) {
+        return <SearchIcon size={size} color={iconColor} />;
+    }
+
+    return <HamburgerIcon size={size} color={iconColor} />;
 };
 
 type TGetTabNavigatorOptions = (args: {
