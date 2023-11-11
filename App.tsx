@@ -18,8 +18,7 @@ function App(): JSX.Element {
                     />
 
                     <Box style={styles.appWrapper}>
-                        <Header />
-                        <Routes />
+                        <Routes homeScreenChildren={<Header />} />
                     </Box>
                 </SafeAreaView>
             </NativeBaseProvider>

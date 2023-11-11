@@ -8,11 +8,9 @@ import ErrorIndicator from '../error-indicator/ErrorIndicator';
 import LoadingIndicator from '../loading-indicator/LoadingIndicator';
 import ScreenContainer from '../screen-container/ScreenContainer';
 
-type TFavoriteLisTRootTabScreenProps = TRootTabScreenProps<'Favorites'>;
-
 export default function FavoriteListScreen({
     navigation,
-}: TFavoriteLisTRootTabScreenProps): JSX.Element {
+}: TRootTabScreenProps): JSX.Element {
     const {
         favoriteList,
         coinList,

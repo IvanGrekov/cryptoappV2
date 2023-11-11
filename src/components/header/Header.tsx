@@ -23,6 +23,7 @@ const styles = StyleSheet.create({
         padding: STYLE_VARIABLES.mdPadding,
         borderBottomWidth: 1,
         borderBottomColor: STYLE_VARIABLES.blackInvisible,
+        backgroundColor: STYLE_VARIABLES.bgColor,
     },
     text: {
         color: STYLE_VARIABLES.black,

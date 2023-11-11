@@ -1,33 +1,76 @@
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { PropsWithChildren, ReactNode } from 'react';
 
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+import CoinDetailsScreen from '../components/coin-details-screen/CoinDetailsScreen';
 import CoinListScreenContent from '../components/coin-list-screen/CoinListScreen';
 import FavoriteListScreen from '../components/favorite-list-screen/FavoriteListScreen';
-import { ERouteNames } from '../types/routes';
+import { TRootTabsParamList, ERouteNames } from '../types/routes';
+import {
+    getStackNavigationOptions,
+    getDetailsScreenOptions,
+} from '../utils/stackNavigator.utils';
 import { getTabNavigatorOptions } from '../utils/tabNavigator.utils';
 
-const Tab = createBottomTabNavigator();
+const Tab = createBottomTabNavigator<TRootTabsParamList>();
+const Stack = createNativeStackNavigator<TRootTabsParamList>();
 
-export default function Routes(): JSX.Element {
+function HomeRoutes({ children }: PropsWithChildren): JSX.Element {
     return (
-        <Tab.Navigator
-            initialRouteName={ERouteNames.LIST}
-            screenOptions={getTabNavigatorOptions}
-        >
-            <Tab.Screen
-                name={ERouteNames.LIST}
-                component={CoinListScreenContent}
-                options={{
-                    headerShown: false,
-                }}
-            />
+        <>
+            {children}
 
-            <Tab.Screen
-                name={ERouteNames.FAVORITES}
-                component={FavoriteListScreen}
-                options={{
-                    headerShown: false,
-                }}
+            <Tab.Navigator
+                initialRouteName={ERouteNames.LIST}
+                screenOptions={getTabNavigatorOptions}
+            >
+                <Tab.Screen
+                    name={ERouteNames.LIST}
+                    component={CoinListScreenContent}
+                    options={{
+                        headerShown: false,
+                    }}
+                />
+
+                <Tab.Screen
+                    name={ERouteNames.FAVORITES}
+                    component={FavoriteListScreen}
+                    options={{
+                        headerShown: false,
+                    }}
+                />
+            </Tab.Navigator>
+        </>
+    );
+}
+
+interface IRoutesProps {
+    homeScreenChildren?: ReactNode;
+}
+
+export default function Routes({
+    homeScreenChildren,
+}: IRoutesProps): JSX.Element {
+    return (
+        <Stack.Navigator
+            initialRouteName={ERouteNames.HOME}
+            screenOptions={getStackNavigationOptions}
+        >
+            <Stack.Screen
+                name={ERouteNames.HOME}
+                options={{ headerShown: false }}
+            >
+                {(props): JSX.Element => (
+                    <HomeRoutes {...props}>{homeScreenChildren}</HomeRoutes>
+                )}
+            </Stack.Screen>
+
+            <Stack.Screen
+                name={ERouteNames.DETAILS}
+                component={CoinDetailsScreen}
+                options={getDetailsScreenOptions}
             />
-        </Tab.Navigator>
+        </Stack.Navigator>
     );
 }
