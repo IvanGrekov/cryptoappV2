@@ -1,15 +1,19 @@
 import { Dispatch, SetStateAction } from 'react';
 
-import { getCoinsList as getCoinsListQuery } from '../api/coinList';
-import { MAX_PAGE_NUMBER } from '../api/coinList/constants';
+import {
+    getCoinsList as getCoinsListQuery,
+    getSymbolList as getSymbolListQuery,
+} from '../api/coinList';
 import { ICoin } from '../types/coinList';
 
-type TGetCoinList = (args: {
+interface IGetCoinListArgs {
     setIsLoading: Dispatch<SetStateAction<boolean>>;
     setCoinList: Dispatch<SetStateAction<ICoin[]>>;
     setPageNumber: Dispatch<SetStateAction<number>>;
     setError: Dispatch<SetStateAction<string>>;
-}) => Promise<void>;
+}
+
+type TGetCoinList = (args: IGetCoinListArgs) => Promise<void>;
 
 export const getCoinList: TGetCoinList = async ({
     setIsLoading,
@@ -34,13 +38,41 @@ export const getCoinList: TGetCoinList = async ({
     }
 };
 
-type TGetMoreCoins = (args: {
+interface IGetSymbolListArgs extends IGetCoinListArgs {
+    symbols: string[];
+}
+
+type TGetSymbolList = (args: IGetSymbolListArgs) => Promise<void>;
+
+export const getSymbolList: TGetSymbolList = async ({
+    symbols,
+    setIsLoading,
+    setCoinList,
+    setPageNumber,
+    setError,
+}) => {
+    try {
+        setIsLoading(true);
+        const result = await getSymbolListQuery(symbols);
+
+        if (Array.isArray(result)) {
+            setCoinList(result);
+            setPageNumber((prev) => ++prev);
+        } else {
+            setError(result.errorMessage);
+        }
+    } catch {
+        setError('Something went wrong');
+    } finally {
+        setIsLoading(false);
+    }
+};
+
+interface IGetMoreCoinsArgs extends IGetCoinListArgs {
     pageNumber: number;
-    setIsLoading: Dispatch<SetStateAction<boolean>>;
-    setCoinList: Dispatch<SetStateAction<ICoin[]>>;
-    setPageNumber: Dispatch<SetStateAction<number>>;
-    setError: Dispatch<SetStateAction<string>>;
-}) => Promise<void>;
+}
+
+type TGetMoreCoins = (args: IGetMoreCoinsArgs) => Promise<void>;
 
 export const getMoreCoins: TGetMoreCoins = async ({
     pageNumber,
@@ -49,10 +81,6 @@ export const getMoreCoins: TGetMoreCoins = async ({
     setPageNumber,
     setError,
 }) => {
-    if (pageNumber === MAX_PAGE_NUMBER) {
-        return;
-    }
-
     try {
         setIsLoading(true);
         const result = await getCoinsListQuery(pageNumber);
@@ -70,12 +98,37 @@ export const getMoreCoins: TGetMoreCoins = async ({
     }
 };
 
-type TRefreshCoinList = (args: {
+type TGetMoreSymbols = (args: IGetSymbolListArgs) => Promise<void>;
+
+export const getMoreSymbols: TGetMoreSymbols = async ({
+    symbols,
+    setIsLoading,
+    setCoinList,
+    setPageNumber,
+    setError,
+}) => {
+    try {
+        setIsLoading(true);
+        const result = await getSymbolListQuery(symbols);
+
+        if (Array.isArray(result)) {
+            setCoinList((prev) => [...prev, ...result]);
+            setPageNumber((prev) => ++prev);
+        } else {
+            setError(result.errorMessage);
+        }
+    } catch {
+        setError('Something went wrong');
+    } finally {
+        setIsLoading(false);
+    }
+};
+
+type IRefreshCoinListArgs = Omit<IGetCoinListArgs, 'setIsLoading'> & {
     setIsRefreshing: Dispatch<SetStateAction<boolean>>;
-    setCoinList: Dispatch<SetStateAction<ICoin[]>>;
-    setPageNumber: Dispatch<SetStateAction<number>>;
-    setError: Dispatch<SetStateAction<string>>;
-}) => Promise<void>;
+};
+
+type TRefreshCoinList = (args: IRefreshCoinListArgs) => Promise<void>;
 
 export const refreshCoinList: TRefreshCoinList = async ({
     setIsRefreshing,
@@ -86,6 +139,36 @@ export const refreshCoinList: TRefreshCoinList = async ({
     try {
         setIsRefreshing(true);
         const result = await getCoinsListQuery();
+
+        if (Array.isArray(result)) {
+            setCoinList(result);
+            setPageNumber(1);
+        } else {
+            setError(result.errorMessage);
+        }
+    } catch {
+        setError('Something went wrong');
+    } finally {
+        setIsRefreshing(false);
+    }
+};
+
+interface IRefreshSymbolListArgs extends IRefreshCoinListArgs {
+    symbols: string[];
+}
+
+type TRefreshSymbolList = (args: IRefreshSymbolListArgs) => Promise<void>;
+
+export const refreshSymbolList: TRefreshSymbolList = async ({
+    symbols,
+    setIsRefreshing,
+    setCoinList,
+    setPageNumber,
+    setError,
+}) => {
+    try {
+        setIsRefreshing(true);
+        const result = await getSymbolListQuery(symbols);
 
         if (Array.isArray(result)) {
             setCoinList(result);

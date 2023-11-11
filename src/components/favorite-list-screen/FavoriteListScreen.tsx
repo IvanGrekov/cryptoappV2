@@ -1,7 +1,8 @@
-import { Text, Button } from 'native-base';
+import { Button } from 'native-base';
 
 import { useFavoriteCoins } from '../../hooks/favoriteCoins.hooks';
 import { TRootTabScreenProps, ERouteNames } from '../../types/routes';
+import CoinList from '../coin-list/CoinList';
 import EmptyStateIndicator from '../empty-state-indicator/EmptyStateIndicator';
 import ErrorIndicator from '../error-indicator/ErrorIndicator';
 import LoadingIndicator from '../loading-indicator/LoadingIndicator';
@@ -12,7 +13,15 @@ type TFavoriteLisTRootTabScreenProps = TRootTabScreenProps<'Favorites'>;
 export default function FavoriteListScreen({
     navigation,
 }: TFavoriteLisTRootTabScreenProps): JSX.Element {
-    const { favoriteList, isLoading, error } = useFavoriteCoins();
+    const {
+        favoriteList,
+        coinList,
+        isLoading,
+        isRefreshing,
+        error,
+        getMoreCoins,
+        refreshCoinList,
+    } = useFavoriteCoins();
 
     if (!favoriteList) {
         return (
@@ -44,9 +53,14 @@ export default function FavoriteListScreen({
 
             <ErrorIndicator error={error} />
 
-            {favoriteList.map((favorite: string) => (
-                <Text key={favorite}>{favorite}</Text>
-            ))}
+            <CoinList
+                coinList={coinList}
+                isLoading={isLoading}
+                isRefreshing={isRefreshing}
+                isFavoriteList={true}
+                getMoreCoins={getMoreCoins}
+                refreshCoinList={refreshCoinList}
+            />
         </ScreenContainer>
     );
 }

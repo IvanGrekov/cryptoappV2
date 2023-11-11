@@ -11,6 +11,7 @@ interface ICoinsListProps {
     coinList: TCoinList;
     isLoading: boolean;
     isRefreshing: boolean;
+    isFavoriteList?: boolean;
     getMoreCoins: () => Promise<void>;
     refreshCoinList: () => Promise<void>;
 }
@@ -19,6 +20,7 @@ export default function CoinList({
     coinList,
     isLoading,
     isRefreshing,
+    isFavoriteList,
     getMoreCoins,
     refreshCoinList,
 }: ICoinsListProps): JSX.Element {
@@ -29,7 +31,12 @@ export default function CoinList({
         item: ICoin;
         index: number;
     }): JSX.Element => {
-        return <CoinItem coin={{ ...item, marketCapRank: ++index }} />;
+        return (
+            <CoinItem
+                coin={{ ...item, marketCapRank: ++index }}
+                isFavoriteList={isFavoriteList}
+            />
+        );
     };
 
     const createKeyExtractor = (item: ICoin): string => {
