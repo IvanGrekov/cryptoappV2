@@ -1,27 +1,27 @@
 import { ICoin } from './coinList';
 
+interface IToplistBaseRank {
+    TOTAL_MKT_CAP_USD: number;
+}
+
+// 'PAYMENT', 'STABLECOIN', ...
+interface IApiAssetIndustry {
+    ASSET_INDUSTRY: string;
+}
+
 interface IApiSupportedPlatform {
     BLOCKCHAIN?: string;
     TOKEN_STANDARD?: string;
 }
 
 interface IApiTwitterAccount {
-    URL?: string;
-    FOLLOWERS?: number;
-}
-
-interface IToplistBaseRank {
-    TOTAL_MKT_CAP_USD: number;
+    URL: string;
+    FOLLOWERS: number;
 }
 
 interface IApiProjectLeader {
     LEADER_TYPE: string;
     FULL_NAME: string;
-}
-
-// 'PAYMENT', 'STABLECOIN', ...
-interface IApiAssetIndustry {
-    ASSET_INDUSTRY: string;
 }
 
 interface IApiExplorerAddress {
@@ -75,7 +75,7 @@ export interface IExplorer {
 
 export interface ICoinDetails extends ICoin {
     marketCapRank: number;
-    assetDescription: string;
+    assetDescription?: string;
     assetIndustries?: string[];
     supportedPlatforms?: ISupportedPlatform[];
 

@@ -1,4 +1,5 @@
 import { COIN_IMAGES_URL } from '../../../constants/coinList';
+import { IApiCoinAsset, ICoinDetails } from '../../../types/coinDetails';
 import {
     TApiCoinList,
     TCoinList,
@@ -52,4 +53,103 @@ export const formatSymbolList = (data: TApiSymbolList): TCoinList => {
     }
 
     return result;
+};
+
+const getAssetIndustries = (
+    data?: IApiCoinAsset['Data']['ASSET_INDUSTRIES'],
+): string[] | undefined => {
+    return data?.map(({ ASSET_INDUSTRY }) => ASSET_INDUSTRY);
+};
+
+const getTwitterAccount = (
+    data?: IApiCoinAsset['Data']['TWITTER_ACCOUNTS'],
+): ICoinDetails['twitterAccount'] => {
+    const mainTwitterAccount = data?.[0];
+
+    if (!mainTwitterAccount) {
+        return undefined;
+    }
+
+    return {
+        url: mainTwitterAccount.URL,
+        followers: mainTwitterAccount.FOLLOWERS,
+    };
+};
+
+const getSupportedPlatforms = (
+    data?: IApiCoinAsset['Data']['SUPPORTED_PLATFORMS'],
+): ICoinDetails['supportedPlatforms'] => {
+    const filteredData = data?.filter(
+        ({ BLOCKCHAIN, TOKEN_STANDARD }) => BLOCKCHAIN && TOKEN_STANDARD,
+    );
+
+    return filteredData?.map(({ BLOCKCHAIN, TOKEN_STANDARD }) => ({
+        blockchain: BLOCKCHAIN,
+        tokenStandard: TOKEN_STANDARD,
+    })) as ICoinDetails['supportedPlatforms'];
+};
+
+const getProjectLeaders = (
+    data?: IApiCoinAsset['Data']['PROJECT_LEADERS'],
+): ICoinDetails['projectLeaders'] => {
+    return data?.map(({ LEADER_TYPE, FULL_NAME }) => ({
+        leaderType: LEADER_TYPE,
+        fullName: FULL_NAME,
+    }));
+};
+
+const getExplorers = (
+    data?: IApiCoinAsset['Data']['EXPLORER_ADDRESSES'],
+): ICoinDetails['explorers'] => {
+    return data?.map(({ URL }) => {
+        const name = URL.split('/')[2];
+
+        return {
+            name,
+            url: URL,
+        };
+    });
+};
+
+export const formatSymbolAsset = (data: IApiCoinAsset): ICoinDetails => {
+    const {
+        NAME,
+        SYMBOL,
+        LOGO_URL,
+        PRICE_USD,
+        TOTAL_MKT_CAP_USD,
+        TOPLIST_BASE_RANK,
+        ASSET_INDUSTRIES,
+        ASSET_DESCRIPTION_SNIPPET,
+        ASSET_DESCRIPTION_SUMMARY = ASSET_DESCRIPTION_SNIPPET,
+        SUPPLY_MAX,
+        SUPPLY_ISSUED,
+        WEBSITE_URL,
+        WHITE_PAPER_URL,
+        TWITTER_ACCOUNTS,
+        PROJECT_LEADERS,
+        EXPLORER_ADDRESSES,
+        SUPPORTED_PLATFORMS,
+    } = data.Data;
+
+    return {
+        id: `${TOTAL_MKT_CAP_USD}`,
+        name: NAME,
+        fullName: NAME,
+        symbol: SYMBOL,
+        imageUrl: LOGO_URL,
+        price: PRICE_USD,
+        marketCap: TOTAL_MKT_CAP_USD,
+        marketCapRank: TOPLIST_BASE_RANK.TOTAL_MKT_CAP_USD,
+        assetDescription: ASSET_DESCRIPTION_SUMMARY,
+        assetIndustries: getAssetIndustries(ASSET_INDUSTRIES),
+        maxSupply: SUPPLY_MAX ? SUPPLY_MAX : undefined,
+        issuedSupply: SUPPLY_MAX && SUPPLY_ISSUED ? SUPPLY_ISSUED : undefined,
+        websiteUrl: WEBSITE_URL,
+        whitePageUrl: WHITE_PAPER_URL,
+        twitterAccount: getTwitterAccount(TWITTER_ACCOUNTS),
+        projectLeaders: getProjectLeaders(PROJECT_LEADERS),
+        supportedPlatforms: getSupportedPlatforms(SUPPORTED_PLATFORMS),
+        explorers: getExplorers(EXPLORER_ADDRESSES),
+    };
 };
