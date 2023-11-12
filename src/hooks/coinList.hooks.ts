@@ -18,6 +18,8 @@ type TUseCoinList = () => {
     refreshCoinList: () => Promise<void>;
 };
 
+let abortController = new AbortController();
+
 export const useCoinList: TUseCoinList = () => {
     const isFocused = useIsFocused();
 
@@ -32,7 +34,10 @@ export const useCoinList: TUseCoinList = () => {
             setCoinList([]);
             setPageNumber(0);
 
-            return;
+            return () => {
+                abortController.abort();
+                abortController = new AbortController();
+            };
         }
 
         getCoinList({
@@ -40,6 +45,7 @@ export const useCoinList: TUseCoinList = () => {
             setCoinList,
             setPageNumber,
             setError,
+            abortController,
         });
     }, [isFocused]);
 

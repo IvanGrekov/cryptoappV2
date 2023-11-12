@@ -11,6 +11,7 @@ interface IGetCoinListArgs {
     setCoinList: Dispatch<SetStateAction<ICoin[]>>;
     setPageNumber: Dispatch<SetStateAction<number>>;
     setError: Dispatch<SetStateAction<string>>;
+    abortController?: AbortController;
 }
 
 type TGetCoinList = (args: IGetCoinListArgs) => Promise<void>;
@@ -20,10 +21,11 @@ export const getCoinList: TGetCoinList = async ({
     setCoinList,
     setPageNumber,
     setError,
+    abortController,
 }) => {
     try {
         setIsLoading(true);
-        const result = await getCoinsListQuery();
+        const result = await getCoinsListQuery({ abortController });
 
         if (Array.isArray(result)) {
             setCoinList(result);
@@ -50,10 +52,11 @@ export const getSymbolList: TGetSymbolList = async ({
     setCoinList,
     setPageNumber,
     setError,
+    abortController,
 }) => {
     try {
         setIsLoading(true);
-        const result = await getSymbolListQuery(symbols);
+        const result = await getSymbolListQuery({ symbols, abortController });
 
         if (Array.isArray(result)) {
             setCoinList(result);
@@ -83,7 +86,7 @@ export const getMoreCoins: TGetMoreCoins = async ({
 }) => {
     try {
         setIsLoading(true);
-        const result = await getCoinsListQuery(pageNumber);
+        const result = await getCoinsListQuery({ pageNumber });
 
         if (Array.isArray(result)) {
             setCoinList((prev) => [...prev, ...result]);
@@ -109,7 +112,7 @@ export const getMoreSymbols: TGetMoreSymbols = async ({
 }) => {
     try {
         setIsLoading(true);
-        const result = await getSymbolListQuery(symbols);
+        const result = await getSymbolListQuery({ symbols });
 
         if (Array.isArray(result)) {
             setCoinList((prev) => [...prev, ...result]);
@@ -135,10 +138,11 @@ export const refreshCoinList: TRefreshCoinList = async ({
     setCoinList,
     setPageNumber,
     setError,
+    abortController,
 }) => {
     try {
         setIsRefreshing(true);
-        const result = await getCoinsListQuery();
+        const result = await getCoinsListQuery({ abortController });
 
         if (Array.isArray(result)) {
             setCoinList(result);
@@ -168,7 +172,7 @@ export const refreshSymbolList: TRefreshSymbolList = async ({
 }) => {
     try {
         setIsRefreshing(true);
-        const result = await getSymbolListQuery(symbols);
+        const result = await getSymbolListQuery({ symbols });
 
         if (Array.isArray(result)) {
             setCoinList(result);

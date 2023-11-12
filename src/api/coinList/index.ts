@@ -4,11 +4,20 @@ import { BASE_URL, END_POINTS, CURRENCY, COINS_PER_PAGE } from './constants';
 import { IError } from './types';
 import { formatCoinList, formatSymbolList } from './utils';
 
-export const getCoinsList = (page = 0): Promise<TCoinList | IError> => {
+type TGetCoinsList = (args: {
+    pageNumber?: number;
+    abortController?: AbortController;
+}) => Promise<TCoinList | IError>;
+
+export const getCoinsList: TGetCoinsList = ({
+    pageNumber = 0,
+    abortController,
+}) => {
     const URL = `${BASE_URL}${END_POINTS.getCryptoList}`;
-    const PAGINATION_PARAMS = `limit=${COINS_PER_PAGE}&page=${page}`;
+    const PAGINATION_PARAMS = `limit=${COINS_PER_PAGE}&page=${pageNumber}`;
 
     return fetch(`${URL}?tsym=${CURRENCY}&${PAGINATION_PARAMS}`, {
+        signal: abortController?.signal,
         headers: {
             Authorization: `Apikey ${process.env.COIN_LIST_API_KEY}`,
         },
@@ -33,13 +42,17 @@ export const getCoinsList = (page = 0): Promise<TCoinList | IError> => {
         });
 };
 
-export const getSymbolList = (
-    symbols: string[],
-): Promise<TCoinList | IError> => {
+type TGetSymbolList = (args: {
+    symbols: string[];
+    abortController?: AbortController;
+}) => Promise<TCoinList | IError>;
+
+export const getSymbolList: TGetSymbolList = ({ symbols, abortController }) => {
     const URL = `${BASE_URL}${END_POINTS.getMultiSymbols}`;
     const SYMBOLS_PARAM = `fsyms=${symbols.join(',')}`;
 
     return fetch(`${URL}?tsyms=${CURRENCY}&${SYMBOLS_PARAM}`, {
+        signal: abortController?.signal,
         headers: {
             Authorization: `Apikey ${process.env.COIN_LIST_API_KEY}`,
         },
