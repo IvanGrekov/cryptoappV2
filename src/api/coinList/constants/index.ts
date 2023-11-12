@@ -1,9 +1,9 @@
-export const BASE_URL = 'https://min-api.cryptocompare.com/data';
+export const BASE_URL = 'https://min-api.cryptocompare.com';
 
 export const END_POINTS = {
-    getCryptoList: '/top/mktcapfull',
-    getMultiSymbols: '/pricemultifull',
-    getCryptoPrice: '/pricemulti',
+    getCryptoList: '/data/top/mktcapfull',
+    getMultiSymbols: '/data/pricemultifull',
+    getCoinBySymbol: '/asset/v1/data/by/symbol',
 };
 
 export const CURRENCY = 'USD';
