@@ -27,20 +27,23 @@ export const useSearchCoin: TUseSearchCoin = () => {
 
     const [data, setData] = useState<ICoin | null>(null);
     const [isLoading] = useState(false);
-    const [error] = useState('');
+    const [error, setError] = useState('');
 
     useEffect(() => {
         if (!isFocused) {
             setSearchValue('');
             setData(null);
+            setError('');
 
-            return () => {
-                abortController.abort();
-                abortController = new AbortController();
-            };
+            return;
         }
 
         console.log('debouncedValue', debouncedValue);
+
+        return () => {
+            abortController.abort();
+            abortController = new AbortController();
+        };
     }, [isFocused, debouncedValue]);
 
     return {

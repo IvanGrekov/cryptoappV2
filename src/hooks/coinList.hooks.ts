@@ -33,11 +33,9 @@ export const useCoinList: TUseCoinList = () => {
         if (!isFocused) {
             setCoinList([]);
             setPageNumber(0);
+            setError('');
 
-            return () => {
-                abortController.abort();
-                abortController = new AbortController();
-            };
+            return;
         }
 
         getCoinList({
@@ -47,6 +45,11 @@ export const useCoinList: TUseCoinList = () => {
             setError,
             abortController,
         });
+
+        return () => {
+            abortController.abort();
+            abortController = new AbortController();
+        };
     }, [isFocused]);
 
     return {

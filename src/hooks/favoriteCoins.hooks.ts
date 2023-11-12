@@ -25,8 +25,6 @@ type TUseFavoriteCoins = () => {
     refreshCoinList: () => Promise<void>;
 };
 
-let abortController = new AbortController();
-
 export const useFavoriteCoins: TUseFavoriteCoins = () => {
     const isFocused = useIsFocused();
 
@@ -42,6 +40,7 @@ export const useFavoriteCoins: TUseFavoriteCoins = () => {
             setFavoriteList(null);
             setCoinList([]);
             setPageNumber(0);
+            setError('');
 
             return;
         }
@@ -51,13 +50,10 @@ export const useFavoriteCoins: TUseFavoriteCoins = () => {
 
     useEffect(() => {
         if (!isFocused) {
-            return () => {
-                abortController.abort();
-                abortController = new AbortController();
-            };
+            return;
         }
 
-        if (!favoriteList?.length || pageNumber > 0) {
+        if (!favoriteList?.length) {
             return;
         }
 
@@ -69,9 +65,8 @@ export const useFavoriteCoins: TUseFavoriteCoins = () => {
             setCoinList,
             setPageNumber,
             setError,
-            abortController,
         });
-    }, [isFocused, favoriteList, pageNumber]);
+    }, [isFocused, favoriteList]);
 
     const getMoreCoins = (): Promise<void> => {
         if (!favoriteList?.length) {
