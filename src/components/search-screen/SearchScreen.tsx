@@ -1,7 +1,7 @@
 import { StyleSheet, RefreshControl } from 'react-native';
 
 import { useNavigation, NavigationProp } from '@react-navigation/native';
-import { VStack, Box, ScrollView } from 'native-base';
+import { ScrollView, VStack, Box } from 'native-base';
 
 import { STYLE_VARIABLES } from '../../constants/style';
 import { useSearchCoin } from '../../hooks/searchCoin.hooks';
@@ -23,7 +23,7 @@ export default function SearchScreen(): JSX.Element {
         isRefreshing,
         error,
         onChangeSearchValue,
-        refreshCoinList,
+        refreshCoinDetails,
     } = useSearchCoin();
 
     const onItemPress = (): void => {
@@ -54,7 +54,7 @@ export default function SearchScreen(): JSX.Element {
                 refreshControl={
                     <RefreshControl
                         refreshing={isRefreshing}
-                        onRefresh={refreshCoinList}
+                        onRefresh={refreshCoinDetails}
                     />
                 }
             >
