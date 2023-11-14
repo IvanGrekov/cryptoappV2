@@ -17,24 +17,31 @@ export default function CoinDetails({
     marketCapRank,
     isFavoriteList,
 }: TCoinDetailsProps): JSX.Element {
+    const coinSymbol = symbol.toUpperCase();
+    const coinName = isFavoriteList
+        ? coinSymbol
+        : getCoinName({ name, symbol });
+
     return (
         <VStack space={STYLE_VARIABLES.smSpacing}>
-            <Text style={styles.title}>{getCoinName({ name, symbol })}</Text>
+            <Text style={styles.name}>{coinName}</Text>
 
-            <HStack space={STYLE_VARIABLES.smSpacing}>
-                {!isFavoriteList && !!marketCapRank && (
-                    <CoinMarketCapRank rank={marketCapRank} />
-                )}
+            {!isFavoriteList && (
+                <HStack space={STYLE_VARIABLES.smSpacing}>
+                    {!!marketCapRank && (
+                        <CoinMarketCapRank rank={marketCapRank} />
+                    )}
 
-                <Text>{symbol.toUpperCase()}</Text>
-            </HStack>
+                    <Text>{coinSymbol}</Text>
+                </HStack>
+            )}
         </VStack>
     );
 }
 
 const styles = StyleSheet.create({
-    title: {
-        fontSize: STYLE_VARIABLES.headingFontSize,
+    name: {
+        fontSize: STYLE_VARIABLES.lgHeadingFontSize,
         fontWeight: 'bold',
     },
 });

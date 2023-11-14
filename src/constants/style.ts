@@ -132,6 +132,9 @@ export const STYLE_VARIABLES = {
     smSpacing: SIZE['0.5'],
     xsSpacing: SIZE.px,
 
-    headingFontSize: FONT_SIZES.lg,
-    extraHeadingFontSize: FONT_SIZES['3xl'],
+    smHeadingFontSize: FONT_SIZES.md,
+    mdHeadingFontSize: FONT_SIZES.lg,
+    lgHeadingFontSize: FONT_SIZES.xl,
+    xlHeadingFontSize: FONT_SIZES['3xl'],
+    xxlHeadingFontSize: FONT_SIZES['5xl'],
 };

@@ -1,5 +1,5 @@
 const MAX_NAME_LENGTH = 12;
-const MAX_NAME_LENGTH_BIG = 12;
+const MAX_NAME_LENGTH_BIG = 16;
 
 type TGetCoinName = (args: {
     name: string;

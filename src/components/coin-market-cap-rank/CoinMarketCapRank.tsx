@@ -36,6 +36,6 @@ const styles = StyleSheet.create({
     rankBig: {
         paddingHorizontal: STYLE_VARIABLES.smPadding,
         paddingVertical: STYLE_VARIABLES.xsPadding,
-        fontSize: STYLE_VARIABLES.headingFontSize,
+        fontSize: STYLE_VARIABLES.mdHeadingFontSize,
     },
 });

@@ -27,7 +27,7 @@ export default function MainInfo({
             <HStack space={STYLE_VARIABLES.xsSpacing} style={styles.mainInfo}>
                 <HStack
                     space={STYLE_VARIABLES.xsSpacing}
-                    style={styles.titleWrapper}
+                    style={styles.nameWrapper}
                 >
                     <Image
                         source={{ uri: `${imageUrl}` }}
@@ -35,7 +35,7 @@ export default function MainInfo({
                         style={styles.image}
                     />
 
-                    <Text style={styles.title}>
+                    <Text style={styles.name}>
                         {getCoinName({ name: fullName, symbol, isBig: true })}
                     </Text>
                 </HStack>
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginBottom: STYLE_VARIABLES.xlSpacing,
     },
-    titleWrapper: {
+    nameWrapper: {
         alignItems: 'center',
     },
     image: {
@@ -66,9 +66,9 @@ const styles = StyleSheet.create({
         height: STYLE_VARIABLES.imgSize,
         borderRadius: STYLE_VARIABLES.imgSize / 2,
     },
-    title: {
-        fontSize: STYLE_VARIABLES.extraHeadingFontSize,
-        lineHeight: STYLE_VARIABLES.extraHeadingFontSize,
+    name: {
+        fontSize: STYLE_VARIABLES.xlHeadingFontSize,
+        lineHeight: STYLE_VARIABLES.xlHeadingFontSize,
         fontWeight: 'bold',
     },
 });

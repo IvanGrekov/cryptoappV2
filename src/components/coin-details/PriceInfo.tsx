@@ -1,38 +1,45 @@
 import { StyleSheet } from 'react-native';
 
-import { VStack, HStack, Text } from 'native-base';
+import { VStack, HStack, Text, Badge } from 'native-base';
 
 import { STYLE_VARIABLES } from '../../constants/style';
 import { ICoinDetails } from '../../types/coinDetails';
 
+import PriceExtraInfo, { TPriceExtraInfoProps } from './PriceExtraInfo';
 import { SIDE_PADDING } from './constants';
-import { roundPrice, roundMarketCap } from './utils';
+import {
+    getPriceChangeBadgeColor,
+    roundPrice,
+    roundPriceChange,
+} from './utils';
 
-type TPriceInfoProps = Pick<ICoinDetails, 'price' | 'marketCap' | 'change24h'>;
+type TPriceInfoProps = Pick<ICoinDetails, 'price' | 'change24h'> &
+    TPriceExtraInfoProps;
 
 export default function PriceInfo({
     price,
-    marketCap,
     change24h,
+    ...rest
 }: TPriceInfoProps): JSX.Element {
+    const priceChangeColor = getPriceChangeBadgeColor(change24h);
+
     return (
-        <HStack style={styles.container}>
-            <VStack>
-                <HStack>
-                    <Text style={styles.title}>Price:</Text>
-                    <Text style={styles.title}>{`$${roundPrice(price)}`}</Text>
-                </HStack>
+        <VStack space={STYLE_VARIABLES.mdSpacing} style={styles.container}>
+            <HStack style={styles.priceWrapper}>
+                <Text style={styles.price}>{`$${roundPrice(price)}`}</Text>
 
-                <HStack>
-                    <Text style={styles.title}>Market Cap:</Text>
-                    <Text style={styles.title}>{`$${roundMarketCap(
-                        marketCap,
-                    )} bln`}</Text>
-                </HStack>
-            </VStack>
+                <Badge
+                    variant="outline"
+                    colorScheme={priceChangeColor}
+                    style={styles.priceChangeBadge}
+                    _text={{ fontSize: STYLE_VARIABLES.smHeadingFontSize }}
+                >
+                    {`24h: ${roundPriceChange(change24h)}%`}
+                </Badge>
+            </HStack>
 
-            <Text>{change24h}</Text>
-        </HStack>
+            <PriceExtraInfo {...rest} />
+        </VStack>
     );
 }
 
@@ -40,7 +47,15 @@ const styles = StyleSheet.create({
     container: {
         paddingHorizontal: SIDE_PADDING,
     },
-    title: {
-        fontSize: STYLE_VARIABLES.headingFontSize,
+    priceWrapper: {
+        justifyContent: 'space-between',
+        alignItems: 'flex-start',
+    },
+    price: {
+        fontSize: STYLE_VARIABLES.xxlHeadingFontSize,
+        lineHeight: STYLE_VARIABLES.xxlHeadingFontSize,
+    },
+    priceChangeBadge: {
+        borderRadius: STYLE_VARIABLES.xsRadius,
     },
 });

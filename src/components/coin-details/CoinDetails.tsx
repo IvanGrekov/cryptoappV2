@@ -23,6 +23,8 @@ export default function CoinDetails({ coin }: ICoinDetailsProps): JSX.Element {
             <Divider />
 
             <PriceInfo {...coin} />
+
+            <Divider />
         </VStack>
     );
 }

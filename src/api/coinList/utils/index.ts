@@ -18,12 +18,12 @@ export const formatCoinList = (data?: TApiCoinList): TCoinList => {
             return;
         }
 
-        const { Id, Name, FullName, ImageUrl } = coin.CoinInfo;
+        const { Id, FullName, ImageUrl } = coin.CoinInfo;
         const { PRICE, MKTCAP, FROMSYMBOL } = coin.RAW.USD;
 
         result.push({
             id: Id,
-            name: Name,
+            name: FullName,
             fullName: FullName,
             symbol: FROMSYMBOL,
             imageUrl: `${COIN_IMAGES_URL}${ImageUrl}`,
