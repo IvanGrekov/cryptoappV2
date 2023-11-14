@@ -16,22 +16,28 @@ interface ICoinItemProps {
     coin: ICoin;
     isFavoriteList?: boolean;
     isSearchList?: boolean;
+    onItemPress?: () => void;
 }
 
 export default function CoinItem({
     coin,
     isFavoriteList,
     isSearchList,
+    onItemPress,
 }: ICoinItemProps): JSX.Element {
     const navigation = useNavigation<NavigationProp<TRootTabsParamList>>();
 
     const { name, imageUrl, symbol } = coin;
 
     const onPress = (): void => {
-        navigation.navigate(ERouteNames.DETAILS, {
-            symbol,
-            prevPage: getPrevPagePath({ isFavoriteList, isSearchList }),
-        });
+        if (!onItemPress) {
+            return navigation.navigate(ERouteNames.DETAILS, {
+                symbol,
+                prevPage: getPrevPagePath({ isFavoriteList, isSearchList }),
+            });
+        }
+
+        onItemPress();
     };
 
     return (

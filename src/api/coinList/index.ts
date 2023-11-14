@@ -1,7 +1,13 @@
 import { IApiCoinAsset, ICoinDetails } from '../../types/coinDetails';
 import { TCoinList, TApiCoinList, TApiSymbolList } from '../../types/coinList';
 
-import { BASE_URL, END_POINTS, CURRENCY, COINS_PER_PAGE } from './constants';
+import {
+    BASE_URL,
+    BASE_DATA_URL,
+    END_POINTS,
+    CURRENCY,
+    COINS_PER_PAGE,
+} from './constants';
 import { IError } from './types';
 import { formatCoinList, formatSymbolList, formatSymbolAsset } from './utils';
 
@@ -87,7 +93,7 @@ export const getCoinBySymbol: TGetCoinBySymbol = ({
     symbol,
     abortController,
 }) => {
-    const URL = `${BASE_URL}${END_POINTS.getCoinBySymbol}`;
+    const URL = `${BASE_DATA_URL}${END_POINTS.getCoinBySymbol}`;
 
     return fetch(`${URL}?asset_symbol=${symbol}`, {
         signal: abortController?.signal,
@@ -98,7 +104,13 @@ export const getCoinBySymbol: TGetCoinBySymbol = ({
         .then(async (response) => {
             const parsedResponse = (await response.json()) as IApiCoinAsset;
 
-            if (parsedResponse.Err.message) {
+            if ('message' in parsedResponse.Err) {
+                return {
+                    errorMessage: 'Coin not found. Correct the name',
+                };
+            }
+
+            if (!parsedResponse.Data.PRICE_USD) {
                 return {
                     errorMessage: 'Coin not found. Correct the name',
                 };

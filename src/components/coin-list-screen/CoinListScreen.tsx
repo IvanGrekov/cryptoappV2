@@ -18,7 +18,7 @@ export default function CoinListScreen(): JSX.Element {
         <ScreenContainer>
             <LoadingIndicator isLoading={isLoading} />
 
-            <ErrorIndicator error={error} />
+            {!isLoading && <ErrorIndicator error={error} />}
 
             <CoinList
                 coinList={coinList}

@@ -1,35 +1,80 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, RefreshControl } from 'react-native';
 
-import { VStack, Box } from 'native-base';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
+import { VStack, Box, ScrollView } from 'native-base';
 
 import { STYLE_VARIABLES } from '../../constants/style';
 import { useSearchCoin } from '../../hooks/searchCoin.hooks';
+import { TRootTabsParamList, ERouteNames } from '../../types/routes';
 import CoinItem from '../coin-list/CoinItem';
+import EmptyStateIndicator from '../empty-state-indicator/EmptyStateIndicator';
 import ErrorIndicator from '../error-indicator/ErrorIndicator';
 import LoadingIndicator from '../loading-indicator/LoadingIndicator';
 import ScreenContainer from '../screen-container/ScreenContainer';
 import SearchField from '../search-field/SearchField';
 
 export default function SearchScreen(): JSX.Element {
-    const { searchValue, data, isLoading, error, onChangeSearchValue } =
-        useSearchCoin();
+    const navigation = useNavigation<NavigationProp<TRootTabsParamList>>();
+
+    const {
+        searchValue,
+        data,
+        isLoading,
+        isRefreshing,
+        error,
+        onChangeSearchValue,
+        refreshCoinList,
+    } = useSearchCoin();
+
+    const onItemPress = (): void => {
+        if (!data) {
+            return;
+        }
+
+        return navigation.navigate(ERouteNames.DETAILS, {
+            symbol: searchValue,
+            prevPage: ERouteNames.SEARCH,
+            data,
+        });
+    };
 
     return (
         <ScreenContainer>
-            <LoadingIndicator isLoading={isLoading} />
+            <LoadingIndicator
+                isLoading={isLoading || (!data && !error && !!searchValue)}
+            />
 
-            <ErrorIndicator error={error} />
+            {!isLoading && <ErrorIndicator error={error} />}
 
-            <VStack space={STYLE_VARIABLES.mdSpacing}>
-                <Box style={styles.fieldWrapper}>
-                    <SearchField
-                        value={searchValue}
-                        onChangeText={onChangeSearchValue}
+            {!data && !error && !isLoading && !searchValue && (
+                <EmptyStateIndicator text="No Search Results" />
+            )}
+
+            <ScrollView
+                refreshControl={
+                    <RefreshControl
+                        refreshing={isRefreshing}
+                        onRefresh={refreshCoinList}
                     />
-                </Box>
+                }
+            >
+                <VStack space={STYLE_VARIABLES.xsSpacing}>
+                    <Box style={styles.fieldWrapper}>
+                        <SearchField
+                            value={searchValue}
+                            onChangeText={onChangeSearchValue}
+                        />
+                    </Box>
 
-                {!!data && <CoinItem coin={data} isSearchList={true} />}
-            </VStack>
+                    {!!data && (
+                        <CoinItem
+                            coin={data}
+                            isSearchList={true}
+                            onItemPress={onItemPress}
+                        />
+                    )}
+                </VStack>
+            </ScrollView>
         </ScreenContainer>
     );
 }

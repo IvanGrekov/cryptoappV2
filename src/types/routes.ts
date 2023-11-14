@@ -1,5 +1,7 @@
 import type { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 
+import { ICoinDetails } from './coinDetails';
+
 export enum ERouteNames {
     HOME = 'Home',
     LIST = 'List',
@@ -21,6 +23,7 @@ export type TRootTabsParamList = {
     Details: {
         symbol: string;
         prevPage: TDetailsPrevPage;
+        data?: ICoinDetails;
     };
 };
 

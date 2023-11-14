@@ -30,6 +30,7 @@ export const getCoinList: TGetCoinList = async ({
         if (Array.isArray(result)) {
             setCoinList(result);
             setPageNumber((prev) => ++prev);
+            setError('');
         } else {
             setError(result.errorMessage);
         }
@@ -61,6 +62,7 @@ export const getSymbolList: TGetSymbolList = async ({
         if (Array.isArray(result)) {
             setCoinList(result);
             setPageNumber((prev) => ++prev);
+            setError('');
         } else {
             setError(result.errorMessage);
         }
@@ -91,6 +93,7 @@ export const getMoreCoins: TGetMoreCoins = async ({
         if (Array.isArray(result)) {
             setCoinList((prev) => [...prev, ...result]);
             setPageNumber((prev) => ++prev);
+            setError('');
         } else {
             setError(result.errorMessage);
         }
@@ -117,6 +120,7 @@ export const getMoreSymbols: TGetMoreSymbols = async ({
         if (Array.isArray(result)) {
             setCoinList((prev) => [...prev, ...result]);
             setPageNumber((prev) => ++prev);
+            setError('');
         } else {
             setError(result.errorMessage);
         }
@@ -147,6 +151,7 @@ export const refreshCoinList: TRefreshCoinList = async ({
         if (Array.isArray(result)) {
             setCoinList(result);
             setPageNumber(1);
+            setError('');
         } else {
             setError(result.errorMessage);
         }
@@ -177,6 +182,7 @@ export const refreshSymbolList: TRefreshSymbolList = async ({
         if (Array.isArray(result)) {
             setCoinList(result);
             setPageNumber(1);
+            setError('');
         } else {
             setError(result.errorMessage);
         }

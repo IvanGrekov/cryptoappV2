@@ -2,16 +2,19 @@ import { useState, useEffect } from 'react';
 
 import { useIsFocused } from '@react-navigation/native';
 
-import { ICoin } from '../types/coinList';
+import { ICoinDetails } from '../types/coinDetails';
+import { getCoinAsset, refreshCoinAsset } from '../utils/coinAsset.utils';
 
 import useDebounce from './debounce.hooks';
 
 type TUseSearchCoin = () => {
     searchValue: string;
-    data: ICoin | null;
+    data: ICoinDetails | null;
     isLoading: boolean;
+    isRefreshing: boolean;
     error: string;
     onChangeSearchValue: (value: string) => void;
+    refreshCoinList: () => void;
 };
 
 let abortController = new AbortController();
@@ -22,12 +25,20 @@ export const useSearchCoin: TUseSearchCoin = () => {
     const [searchValue, setSearchValue] = useState('');
     const debouncedValue = useDebounce({
         value: searchValue,
-        delay: 2000,
+        delay: 1000,
     });
 
-    const [data, setData] = useState<ICoin | null>(null);
-    const [isLoading] = useState(false);
+    const [data, setData] = useState<ICoinDetails | null>(null);
+    const [isLoading, setIsLoading] = useState(false);
+    const [isRefreshing, setIsRefreshing] = useState(false);
     const [error, setError] = useState('');
+
+    useEffect(() => {
+        if (!searchValue) {
+            setData(null);
+            setError('');
+        }
+    }, [searchValue]);
 
     useEffect(() => {
         if (!isFocused) {
@@ -38,7 +49,17 @@ export const useSearchCoin: TUseSearchCoin = () => {
             return;
         }
 
-        console.log('debouncedValue', debouncedValue);
+        if (!debouncedValue) {
+            return;
+        }
+
+        getCoinAsset({
+            symbol: debouncedValue,
+            setIsLoading,
+            setData,
+            setError,
+            abortController,
+        });
 
         return () => {
             abortController.abort();
@@ -50,7 +71,19 @@ export const useSearchCoin: TUseSearchCoin = () => {
         searchValue,
         data,
         isLoading,
+        isRefreshing,
         error,
-        onChangeSearchValue: setSearchValue,
+        onChangeSearchValue: (value: string): void => {
+            setSearchValue(value.toUpperCase());
+        },
+        refreshCoinList: (): void => {
+            refreshCoinAsset({
+                symbol: debouncedValue,
+                setIsRefreshing,
+                setData,
+                setError,
+                abortController,
+            });
+        },
     };
 };

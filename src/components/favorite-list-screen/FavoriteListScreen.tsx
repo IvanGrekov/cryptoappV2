@@ -49,7 +49,7 @@ export default function FavoriteListScreen({
         <ScreenContainer>
             <LoadingIndicator isLoading={isLoading} />
 
-            <ErrorIndicator error={error} />
+            {!isLoading && <ErrorIndicator error={error} />}
 
             <CoinList
                 coinList={coinList}

@@ -6,8 +6,10 @@ import ScreenContainer from '../screen-container/ScreenContainer';
 export default function CoinDetailsScreen({
     route,
 }: TRootTabScreenProps<ERouteNames.DETAILS>): JSX.Element {
-    const { symbol } = route.params;
-    symbol;
+    const { symbol, data } = route.params;
+
+    console.log('symbol', symbol);
+    console.log('data', data);
 
     return (
         <ScreenContainer>
