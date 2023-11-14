@@ -124,7 +124,10 @@ export const STYLE_VARIABLES = {
     xsRadius: SIZE['2.5'],
 
     coinImgSize: SIZE['10'],
+    imgSize: SIZE['20'],
 
+    xlSpacing: SIZE['4'],
+    lgSpacing: SIZE['2'],
     mdSpacing: SIZE['1'],
     smSpacing: SIZE['0.5'],
     xsSpacing: SIZE.px,

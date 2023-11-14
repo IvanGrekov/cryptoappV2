@@ -1,32 +1,29 @@
 import { StyleSheet } from 'react-native';
 
-import { VStack, Text, HStack, Box } from 'native-base';
+import { VStack, Text, HStack } from 'native-base';
 
 import { STYLE_VARIABLES } from '../../constants/style';
 import { ICoin } from '../../types/coinList';
+import { getCoinName } from '../../utils/coinItem.utils';
+import CoinMarketCapRank from '../coin-market-cap-rank/CoinMarketCapRank';
 
-import { getCoinName } from './utils/coinItem.utils';
-
-interface ICoinDetailsProps {
-    coin: ICoin;
+type TCoinDetailsProps = Pick<ICoin, 'name' | 'symbol' | 'marketCapRank'> & {
     isFavoriteList?: boolean;
-}
+};
 
 export default function CoinDetails({
-    coin,
+    name,
+    symbol,
+    marketCapRank,
     isFavoriteList,
-}: ICoinDetailsProps): JSX.Element {
-    const { name, symbol, marketCapRank } = coin;
-
+}: TCoinDetailsProps): JSX.Element {
     return (
         <VStack space={STYLE_VARIABLES.smSpacing}>
             <Text style={styles.title}>{getCoinName({ name, symbol })}</Text>
 
             <HStack space={STYLE_VARIABLES.smSpacing}>
-                {!isFavoriteList && (
-                    <Box style={styles.rankWrapper}>
-                        <Text style={styles.rank}>{marketCapRank}</Text>
-                    </Box>
+                {!isFavoriteList && !!marketCapRank && (
+                    <CoinMarketCapRank rank={marketCapRank} />
                 )}
 
                 <Text>{symbol.toUpperCase()}</Text>
@@ -38,15 +35,6 @@ export default function CoinDetails({
 const styles = StyleSheet.create({
     title: {
         fontSize: STYLE_VARIABLES.headingFontSize,
-        fontWeight: 'bold',
-    },
-    rankWrapper: {
-        borderRadius: STYLE_VARIABLES.xsRadius,
-        backgroundColor: STYLE_VARIABLES.blackOpacity,
-    },
-    rank: {
-        color: STYLE_VARIABLES.bgColor,
-        paddingHorizontal: STYLE_VARIABLES.xsPadding,
         fontWeight: 'bold',
     },
 });

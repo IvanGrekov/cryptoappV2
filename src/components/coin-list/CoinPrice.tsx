@@ -8,13 +8,12 @@ import { ICoin } from '../../types/coinList';
 
 import { roundPrice, roundMarketCap } from './utils/coinItem.utils';
 
-interface ICoinPriceProps {
-    coin: ICoin;
-}
+type TCoinPriceProps = Pick<ICoin, 'price' | 'marketCap'>;
 
-export default function CoinPrice({ coin }: ICoinPriceProps): JSX.Element {
-    const { marketCap, price } = coin;
-
+export default function CoinPrice({
+    price,
+    marketCap,
+}: TCoinPriceProps): JSX.Element {
     return (
         <VStack space={STYLE_VARIABLES.smSpacing}>
             <Text style={styles.price}>{`$${roundPrice(price)}`}</Text>

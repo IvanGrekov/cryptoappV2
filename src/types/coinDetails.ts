@@ -34,6 +34,7 @@ export interface IApiCoinAsset {
         SYMBOL: string;
         PRICE_USD: number;
         TOTAL_MKT_CAP_USD: number;
+        SPOT_MOVING_24_HOUR_CHANGE_PERCENTAGE_USD: number;
         LOGO_URL: string;
         TOPLIST_BASE_RANK: IToplistBaseRank;
         ASSET_INDUSTRIES?: IApiAssetIndustry[];
@@ -75,6 +76,7 @@ export interface IExplorer {
 
 export interface ICoinDetails extends ICoin {
     marketCapRank: number;
+    change24h: number;
     assetDescription?: string;
     assetIndustries?: string[];
     supportedPlatforms?: ISupportedPlatform[];
