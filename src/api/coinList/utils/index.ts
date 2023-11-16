@@ -141,7 +141,7 @@ export const formatSymbolAsset = (data: IApiCoinAsset): ICoinDetails => {
         imageUrl: LOGO_URL,
         price: PRICE_USD,
         marketCap: TOTAL_MKT_CAP_USD,
-        marketCapRank: TOPLIST_BASE_RANK.TOTAL_MKT_CAP_USD,
+        marketCapRank: TOPLIST_BASE_RANK.CIRCULATING_MKT_CAP_USD,
         change24h: SPOT_MOVING_24_HOUR_CHANGE_PERCENTAGE_USD,
         assetDescription: ASSET_DESCRIPTION_SUMMARY,
         assetIndustries: getAssetIndustries(ASSET_INDUSTRIES),

@@ -23,6 +23,7 @@ export default function IndustriesInfo({
 
                 return (
                     <Badge
+                        key={industry}
                         variant="outline"
                         colorScheme={colorScheme}
                         style={styles.badge}

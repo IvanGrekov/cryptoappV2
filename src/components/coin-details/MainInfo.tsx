@@ -8,11 +8,17 @@ import { getCoinName } from '../../utils/coinItem.utils';
 import CoinMarketCapRank from '../coin-market-cap-rank/CoinMarketCapRank';
 
 import IndustriesInfo from './IndustriesInfo';
+import TwitterAccount from './TwitterAccount';
 import { SIDE_PADDING } from './constants';
 
 type TMainInfoProps = Pick<
     ICoinDetails,
-    'fullName' | 'symbol' | 'imageUrl' | 'marketCapRank' | 'assetIndustries'
+    | 'fullName'
+    | 'symbol'
+    | 'imageUrl'
+    | 'marketCapRank'
+    | 'assetIndustries'
+    | 'twitterAccount'
 >;
 
 export default function MainInfo({
@@ -21,6 +27,7 @@ export default function MainInfo({
     imageUrl,
     marketCapRank,
     assetIndustries,
+    twitterAccount,
 }: TMainInfoProps): JSX.Element {
     return (
         <VStack style={styles.container}>
@@ -43,7 +50,14 @@ export default function MainInfo({
                 <CoinMarketCapRank rank={marketCapRank} isBig={true} />
             </HStack>
 
-            <IndustriesInfo assetIndustries={assetIndustries} />
+            <HStack
+                space={STYLE_VARIABLES.xsSpacing}
+                style={styles.industriesWrapper}
+            >
+                <IndustriesInfo assetIndustries={assetIndustries} />
+
+                <TwitterAccount twitterAccount={twitterAccount} />
+            </HStack>
         </VStack>
     );
 }
@@ -70,5 +84,9 @@ const styles = StyleSheet.create({
         fontSize: STYLE_VARIABLES.xlHeadingFontSize,
         lineHeight: STYLE_VARIABLES.xlHeadingFontSize,
         fontWeight: 'bold',
+    },
+    industriesWrapper: {
+        justifyContent: 'space-between',
+        alignItems: 'center',
     },
 });

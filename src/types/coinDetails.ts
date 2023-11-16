@@ -2,6 +2,7 @@ import { ICoin } from './coinList';
 
 interface IToplistBaseRank {
     TOTAL_MKT_CAP_USD: number;
+    CIRCULATING_MKT_CAP_USD: number;
 }
 
 // 'PAYMENT', 'STABLECOIN', ...

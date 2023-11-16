@@ -39,7 +39,7 @@ export default function PriceExtraInfo({
                     </Badge>
 
                     <Text style={styles.priceExtraInfo}>
-                        {` ${roundSupply(maxSupply)} mln`}
+                        {` ${roundSupply(maxSupply)} bln`}
                     </Text>
                 </VStack>
             )}
@@ -53,7 +53,7 @@ export default function PriceExtraInfo({
                     </Badge>
 
                     <Text style={styles.priceExtraInfo}>
-                        {` ${roundSupply(issuedSupply)} mln`}
+                        {` ${roundSupply(issuedSupply)} bln`}
                     </Text>
                 </VStack>
             )}

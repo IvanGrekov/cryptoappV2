@@ -53,5 +53,5 @@ export const roundMarketCap = (marketCap: number): string => {
 };
 
 export const roundSupply = (marketCap: number): string => {
-    return (marketCap / 1_000_000).toFixed(2);
+    return (marketCap / 1_000_000_000).toFixed(2);
 };
