@@ -27,8 +27,8 @@ const styles = StyleSheet.create({
     },
     text: {
         color: STYLE_VARIABLES.black,
-        fontSize: STYLE_VARIABLES.xlHeadingFontSize,
-        lineHeight: STYLE_VARIABLES.xlHeadingFontSize,
+        fontSize: STYLE_VARIABLES.xlFontSize,
+        lineHeight: STYLE_VARIABLES.xlFontSize,
         fontWeight: 'bold',
     },
 });

@@ -111,6 +111,7 @@ export const STYLE_VARIABLES = {
     redOpacity: COLORS.redOpacity[900],
     gray: THEME.colors.gray[300],
     grayOpacity: THEME.colors.gray[400],
+    white: THEME.colors.white,
     black: THEME.colors.gray[900],
     blackOpacity: 'rgba(0, 0, 0, 0.3)',
     blackInvisible: 'rgba(0, 0, 0, 0.1)',
@@ -118,6 +119,7 @@ export const STYLE_VARIABLES = {
     mdPadding: SIZE['4.5'],
     smPadding: SIZE['3.5'],
     xsPadding: SIZE['2'],
+    xxsPadding: SIZE['0.5'],
 
     mdRadius: SIZE['5'],
     smRadius: SIZE['3.5'],
@@ -132,9 +134,9 @@ export const STYLE_VARIABLES = {
     smSpacing: SIZE['0.5'],
     xsSpacing: SIZE.px,
 
-    smHeadingFontSize: FONT_SIZES.md,
-    mdHeadingFontSize: FONT_SIZES.lg,
-    lgHeadingFontSize: FONT_SIZES.xl,
-    xlHeadingFontSize: FONT_SIZES['3xl'],
-    xxlHeadingFontSize: FONT_SIZES['5xl'],
+    smFontSize: FONT_SIZES.md,
+    mdFontSize: FONT_SIZES.lg,
+    lgFontSize: FONT_SIZES.xl,
+    xlFontSize: FONT_SIZES['3xl'],
+    xxlFontSize: FONT_SIZES['5xl'],
 };

@@ -32,7 +32,7 @@ export default function PriceInfo({
                     variant="outline"
                     colorScheme={priceChangeColor}
                     style={styles.priceChangeBadge}
-                    _text={{ fontSize: STYLE_VARIABLES.smHeadingFontSize }}
+                    _text={{ fontSize: STYLE_VARIABLES.smFontSize }}
                 >
                     {`24h: ${roundPriceChange(change24h)}%`}
                 </Badge>
@@ -52,8 +52,8 @@ const styles = StyleSheet.create({
         alignItems: 'flex-start',
     },
     price: {
-        fontSize: STYLE_VARIABLES.xxlHeadingFontSize,
-        lineHeight: STYLE_VARIABLES.xxlHeadingFontSize,
+        fontSize: STYLE_VARIABLES.xxlFontSize,
+        lineHeight: STYLE_VARIABLES.xxlFontSize,
     },
     priceChangeBadge: {
         borderRadius: STYLE_VARIABLES.xsRadius,

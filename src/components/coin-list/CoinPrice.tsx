@@ -27,7 +27,7 @@ export default function CoinPrice({
 
 const styles = StyleSheet.create({
     price: {
-        fontSize: STYLE_VARIABLES.mdHeadingFontSize,
+        fontSize: STYLE_VARIABLES.mdFontSize,
         fontWeight: 'bold',
         textAlign: 'right',
     },

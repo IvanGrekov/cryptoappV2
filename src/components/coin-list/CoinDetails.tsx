@@ -41,7 +41,7 @@ export default function CoinDetails({
 
 const styles = StyleSheet.create({
     name: {
-        fontSize: STYLE_VARIABLES.lgHeadingFontSize,
+        fontSize: STYLE_VARIABLES.lgFontSize,
         fontWeight: 'bold',
     },
 });

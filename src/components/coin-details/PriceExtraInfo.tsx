@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
         borderRadius: STYLE_VARIABLES.xsRadius,
     },
     priceExtraInfo: {
-        fontSize: STYLE_VARIABLES.mdHeadingFontSize,
+        fontSize: STYLE_VARIABLES.mdFontSize,
         color: THEME.colors.coolGray[600],
     },
 });

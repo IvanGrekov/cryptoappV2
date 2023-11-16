@@ -81,8 +81,8 @@ const styles = StyleSheet.create({
         borderRadius: STYLE_VARIABLES.imgSize / 2,
     },
     name: {
-        fontSize: STYLE_VARIABLES.xlHeadingFontSize,
-        lineHeight: STYLE_VARIABLES.xlHeadingFontSize,
+        fontSize: STYLE_VARIABLES.xlFontSize,
+        lineHeight: STYLE_VARIABLES.xlFontSize,
         fontWeight: 'bold',
     },
     industriesWrapper: {

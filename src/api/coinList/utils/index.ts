@@ -1,5 +1,9 @@
 import { COIN_IMAGES_URL } from '../../../constants/coinList';
-import { IApiCoinAsset, ICoinDetails } from '../../../types/coinDetails';
+import {
+    IApiCoinAsset,
+    ICoinDetails,
+    ISupportedPlatform,
+} from '../../../types/coinDetails';
 import {
     TApiCoinList,
     TCoinList,
@@ -79,14 +83,34 @@ const getTwitterAccount = (
 const getSupportedPlatforms = (
     data?: IApiCoinAsset['Data']['SUPPORTED_PLATFORMS'],
 ): ICoinDetails['supportedPlatforms'] => {
-    const filteredData = data?.filter(
-        ({ BLOCKCHAIN, TOKEN_STANDARD }) => BLOCKCHAIN && TOKEN_STANDARD,
-    );
+    if (!data) {
+        return [];
+    }
 
-    return filteredData?.map(({ BLOCKCHAIN, TOKEN_STANDARD }) => ({
-        blockchain: BLOCKCHAIN,
-        tokenStandard: TOKEN_STANDARD,
-    })) as ICoinDetails['supportedPlatforms'];
+    const result: ISupportedPlatform[] = [];
+
+    for (const { BLOCKCHAIN, TOKEN_STANDARD } of data) {
+        if (!BLOCKCHAIN || !TOKEN_STANDARD) {
+            continue;
+        }
+
+        const isExist = result.some(
+            (platform) =>
+                platform.blockchain === BLOCKCHAIN &&
+                platform.tokenStandard === TOKEN_STANDARD,
+        );
+
+        if (isExist) {
+            continue;
+        }
+
+        result.push({
+            blockchain: BLOCKCHAIN,
+            tokenStandard: TOKEN_STANDARD,
+        });
+    }
+
+    return result;
 };
 
 const getProjectLeaders = (
