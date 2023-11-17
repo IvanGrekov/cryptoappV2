@@ -16,10 +16,10 @@ export default function CoinPrice({
 }: TCoinPriceProps): JSX.Element {
     return (
         <VStack space={STYLE_VARIABLES.smSpacing}>
-            <Text style={styles.price}>{`$${roundPrice(price)}`}</Text>
+            <Text style={styles.price}>{`${roundPrice(price)}`}</Text>
 
             <Text style={styles.marketCap}>
-                {`Market cap: $${roundMarketCap(marketCap)} bln`}
+                {`Market cap: ${roundMarketCap(marketCap)}`}
             </Text>
         </VStack>
     );

@@ -20,26 +20,26 @@ export default function PriceExtraInfo({
 }: TPriceExtraInfoProps): JSX.Element {
     return (
         <HStack justifyContent="space-between">
-            <VStack>
+            <VStack style={styles.infoItemWrapper}>
                 <Badge variant="outline" style={styles.priceExtraInfoBadge}>
                     Market Cap
                 </Badge>
 
-                <Text style={styles.priceExtraInfo}>{` $${roundMarketCap(
+                <Text style={styles.priceExtraInfo}>{` ${roundMarketCap(
                     marketCap,
-                )} bln`}</Text>
+                )}`}</Text>
             </VStack>
 
             <Divider orientation="vertical" />
 
             {!!maxSupply && (
-                <VStack>
+                <VStack style={styles.infoItemWrapper}>
                     <Badge variant="outline" style={styles.priceExtraInfoBadge}>
                         Max Supply
                     </Badge>
 
                     <Text style={styles.priceExtraInfo}>
-                        {` ${roundSupply(maxSupply)} bln`}
+                        {` ${roundSupply(maxSupply)}`}
                     </Text>
                 </VStack>
             )}
@@ -47,13 +47,13 @@ export default function PriceExtraInfo({
             <Divider orientation="vertical" />
 
             {!!maxSupply && !!issuedSupply && (
-                <VStack>
+                <VStack style={styles.infoItemWrapper}>
                     <Badge variant="outline" style={styles.priceExtraInfoBadge}>
                         Issued Supply
                     </Badge>
 
                     <Text style={styles.priceExtraInfo}>
-                        {` ${roundSupply(issuedSupply)} bln`}
+                        {` ${roundSupply(issuedSupply)}`}
                     </Text>
                 </VStack>
             )}
@@ -62,6 +62,9 @@ export default function PriceExtraInfo({
 }
 
 const styles = StyleSheet.create({
+    infoItemWrapper: {
+        alignItems: 'center',
+    },
     priceExtraInfoBadge: {
         marginBottom: STYLE_VARIABLES.mdSpacing,
         borderRadius: STYLE_VARIABLES.xsRadius,

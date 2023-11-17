@@ -3,19 +3,21 @@ import React from 'react';
 import { Accordion, HStack, Text } from 'native-base';
 
 import { STYLE_VARIABLES } from '../../constants/style';
-import { ICoinDetails } from '../../types/coinDetails';
+import { IProjectLeader } from '../../types/coinDetails';
 
 import AccordionDetails from './AccordionDetails';
 import AccordionIcon from './AccordionIcon';
 import AccordionSummary from './AccordionSummary';
 import AccordionWrapper from './AccordionWrapper';
 
-type TCoinDescriptionProps = Pick<ICoinDetails, 'projectLeaders'>;
+interface IProjectLeadersProps {
+    projectLeaders: IProjectLeader[];
+}
 
-export default function ProjectLeaders({
+export default function ProjectLeadersProps({
     projectLeaders,
-}: TCoinDescriptionProps): JSX.Element | null {
-    if (!projectLeaders || !projectLeaders.length) {
+}: IProjectLeadersProps): JSX.Element | null {
+    if (!projectLeaders.length) {
         return null;
     }
 

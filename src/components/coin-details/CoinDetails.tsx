@@ -8,9 +8,9 @@ import { ICoinDetails } from '../../types/coinDetails';
 import CoinDescription from './CoinDescription';
 import Divider from './Divider';
 import Explorers from './Explorers';
-import ProjectLeaders from './Explorers copy';
 import MainInfo from './MainInfo';
 import PriceInfo from './PriceInfo';
+import ProjectLeaders from './ProjectLeaders';
 import SupportedPlatforms from './SupportedPlatforms';
 
 interface ICoinDetailsProps {
@@ -32,11 +32,15 @@ export default function CoinDetails({ coin }: ICoinDetailsProps): JSX.Element {
 
             <CoinDescription {...coin} />
 
-            <SupportedPlatforms supportedPlatforms={supportedPlatforms} />
+            {!!supportedPlatforms && (
+                <SupportedPlatforms supportedPlatforms={supportedPlatforms} />
+            )}
 
-            <Explorers explorers={explorers} />
+            {!!explorers && <Explorers explorers={explorers} />}
 
-            <ProjectLeaders projectLeaders={projectLeaders} />
+            {!!projectLeaders && (
+                <ProjectLeaders projectLeaders={projectLeaders} />
+            )}
         </VStack>
     );
 }

@@ -1,3 +1,5 @@
+import Config from 'react-native-config';
+
 import { IApiCoinAsset, ICoinDetails } from '../../types/coinDetails';
 import { TCoinList, TApiCoinList, TApiSymbolList } from '../../types/coinList';
 
@@ -98,7 +100,7 @@ export const getCoinBySymbol: TGetCoinBySymbol = ({
     return fetch(`${URL}?asset_symbol=${symbol}`, {
         signal: abortController?.signal,
         headers: {
-            Authorization: `Apikey ${process.env.COIN_LIST_API_KEY}`,
+            Authorization: `Apikey ${Config.COIN_LIST_API_KEY}`,
         },
     })
         .then(async (response) => {

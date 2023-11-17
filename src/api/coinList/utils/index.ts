@@ -146,7 +146,7 @@ export const formatSymbolAsset = (data: IApiCoinAsset): ICoinDetails => {
         SPOT_MOVING_24_HOUR_CHANGE_PERCENTAGE_USD,
         ASSET_INDUSTRIES,
         ASSET_DESCRIPTION_SNIPPET,
-        ASSET_DESCRIPTION_SUMMARY = ASSET_DESCRIPTION_SNIPPET,
+        ASSET_DESCRIPTION_SUMMARY,
         SUPPLY_MAX,
         SUPPLY_ISSUED,
         WEBSITE_URL,
@@ -167,7 +167,8 @@ export const formatSymbolAsset = (data: IApiCoinAsset): ICoinDetails => {
         marketCap: TOTAL_MKT_CAP_USD,
         marketCapRank: TOPLIST_BASE_RANK.CIRCULATING_MKT_CAP_USD,
         change24h: SPOT_MOVING_24_HOUR_CHANGE_PERCENTAGE_USD,
-        assetDescription: ASSET_DESCRIPTION_SUMMARY,
+        assetDescription:
+            ASSET_DESCRIPTION_SNIPPET || ASSET_DESCRIPTION_SUMMARY,
         assetIndustries: getAssetIndustries(ASSET_INDUSTRIES),
         maxSupply: SUPPLY_MAX ? SUPPLY_MAX : undefined,
         issuedSupply: SUPPLY_MAX && SUPPLY_ISSUED ? SUPPLY_ISSUED : undefined,

@@ -13,6 +13,7 @@ export default function AccordionWrapper({
 
 const styles = StyleSheet.create({
     wrapper: {
+        margin: 0,
         borderColor: STYLE_VARIABLES.blackInvisible,
         borderRadius: 0,
     },

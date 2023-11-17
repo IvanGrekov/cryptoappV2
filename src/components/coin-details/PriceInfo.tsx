@@ -26,7 +26,7 @@ export default function PriceInfo({
     return (
         <VStack space={STYLE_VARIABLES.mdSpacing} style={styles.container}>
             <HStack style={styles.priceWrapper}>
-                <Text style={styles.price}>{`$${roundPrice(price)}`}</Text>
+                <Text style={styles.price}>{`${roundPrice(price)}`}</Text>
 
                 <Badge
                     variant="outline"
