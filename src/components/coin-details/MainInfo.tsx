@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     mainInfo: {
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginBottom: STYLE_VARIABLES.xlSpacing,
+        marginBottom: STYLE_VARIABLES.lgSpacing,
     },
     nameWrapper: {
         alignItems: 'center',

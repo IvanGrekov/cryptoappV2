@@ -1,4 +1,6 @@
-import { Box, Link, Image } from 'native-base';
+import { StyleSheet } from 'react-native';
+
+import { Box, Link, Image, Badge } from 'native-base';
 
 import { ICoinDetails } from '../../types/coinDetails';
 import { EImageSizeType } from '../../types/images';
@@ -12,15 +14,40 @@ export default function TwitterAccount({
         return null;
     }
 
+    const { url, followers } = twitterAccount;
+    const followersNumber = Math.round(followers / 1_000);
+
     return (
-        <Box alignItems="center">
-            <Link href={twitterAccount.url}>
+        <Box style={styles.container}>
+            <Link href={url}>
+                <Badge
+                    variant="solid"
+                    colorScheme="info"
+                    rounded="full"
+                    style={styles.badge}
+                >
+                    {`${followersNumber} k`}
+                </Badge>
+
                 <Image
                     source={require('../../assets/TwitterLogo.png')}
-                    alt="Dollar sign"
+                    alt="twitter logo"
                     size={EImageSizeType.SM}
                 />
             </Link>
         </Box>
     );
 }
+
+const styles = StyleSheet.create({
+    container: {
+        alignItems: 'center',
+        marginBottom: -5,
+    },
+    badge: {
+        position: 'absolute',
+        zIndex: 1,
+        top: -3,
+        right: -7,
+    },
+});
