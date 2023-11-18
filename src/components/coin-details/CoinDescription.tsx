@@ -1,4 +1,6 @@
-import { Accordion, Text } from 'native-base';
+import { StyleSheet } from 'react-native';
+
+import { Accordion, VStack, HStack, Link, Badge, Text } from 'native-base';
 
 import { STYLE_VARIABLES } from '../../constants/style';
 import { ICoinDetails } from '../../types/coinDetails';
@@ -31,19 +33,41 @@ export default function CoinDescription({
                 </AccordionSummary>
 
                 <AccordionDetails>
-                    <Text fontSize={STYLE_VARIABLES.smFontSize}>
-                        {websiteUrl}
-                    </Text>
+                    <VStack space={STYLE_VARIABLES.smSpacing}>
+                        <HStack space={STYLE_VARIABLES.smSpacing}>
+                            <Link href={websiteUrl}>
+                                <Badge
+                                    variant="outline"
+                                    colorScheme="info"
+                                    style={styles.badge}
+                                >
+                                    Website
+                                </Badge>
+                            </Link>
 
-                    <Text fontSize={STYLE_VARIABLES.smFontSize}>
-                        {whitePageUrl}
-                    </Text>
+                            <Link href={whitePageUrl}>
+                                <Badge
+                                    variant="outline"
+                                    colorScheme="text"
+                                    style={styles.badge}
+                                >
+                                    White Paper
+                                </Badge>
+                            </Link>
+                        </HStack>
 
-                    <Text fontSize={STYLE_VARIABLES.smFontSize}>
-                        {assetDescription}
-                    </Text>
+                        <Text fontSize={STYLE_VARIABLES.smFontSize}>
+                            {assetDescription}
+                        </Text>
+                    </VStack>
                 </AccordionDetails>
             </Accordion.Item>
         </AccordionWrapper>
     );
 }
+
+const styles = StyleSheet.create({
+    badge: {
+        borderRadius: STYLE_VARIABLES.xsRadius,
+    },
+});
