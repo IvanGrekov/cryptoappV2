@@ -4,8 +4,8 @@ import { HStack, Image } from 'native-base';
 
 import { STYLE_VARIABLES } from '../../constants/style';
 import { ICoin } from '../../types/coinList';
+import AddToFavoritesButton from '../add-to-favorites-button/AddToFavoritesButton';
 
-import AddToFavoritesButton from './AddToFavoritesButton';
 import CoinDetails from './CoinDetails';
 import CoinPrice from './CoinPrice';
 

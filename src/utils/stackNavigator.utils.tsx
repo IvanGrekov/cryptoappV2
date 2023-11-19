@@ -1,5 +1,6 @@
 import { NativeStackNavigationOptions } from '@react-navigation/native-stack';
 
+import AddToFavoritesButton from '../components/add-to-favorites-button/AddToFavoritesButton';
 import { STYLE_VARIABLES } from '../constants/style';
 import { ERouteNames, TRootTabScreenProps } from '../types/routes';
 
@@ -24,5 +25,6 @@ export const getDetailsScreenOptions: TGetDetailsScreenOptions = ({
     return {
         title: symbol,
         headerBackTitle: prevPage,
+        headerRight: () => <AddToFavoritesButton symbol={symbol} />,
     };
 };
