@@ -1,6 +1,7 @@
 import React from 'react';
+import { StyleSheet } from 'react-native';
 
-import { Accordion, HStack, Text } from 'native-base';
+import { Accordion, HStack, Badge, Text } from 'native-base';
 
 import { STYLE_VARIABLES } from '../../constants/style';
 import { ISupportedPlatform } from '../../types/coinDetails';
@@ -9,6 +10,7 @@ import AccordionDetails from './AccordionDetails';
 import AccordionIcon from './AccordionIcon';
 import AccordionSummary from './AccordionSummary';
 import AccordionWrapper from './AccordionWrapper';
+import { getPlatformBadgeColor } from './utils/platforms.utils';
 
 interface ISupportedPlatformsProps {
     supportedPlatforms: ISupportedPlatform[];
@@ -30,19 +32,53 @@ export default function SupportedPlatforms({
                 </AccordionSummary>
 
                 <AccordionDetails>
-                    {supportedPlatforms.map(({ blockchain, tokenStandard }) => (
-                        <HStack key={`${blockchain}-${tokenStandard}`}>
-                            <Text fontSize={STYLE_VARIABLES.smFontSize}>
-                                {blockchain}
-                            </Text>
-                            <Text>{' - '}</Text>
-                            <Text fontSize={STYLE_VARIABLES.smFontSize}>
-                                {tokenStandard}
-                            </Text>
-                        </HStack>
-                    ))}
+                    <HStack style={styles.supportedPlatforms}>
+                        {supportedPlatforms.map(
+                            ({ tokenStandard, blockchain }) => (
+                                <Badge
+                                    key={`${tokenStandard}-${blockchain}`}
+                                    variant="solid"
+                                    colorScheme={getPlatformBadgeColor(
+                                        tokenStandard,
+                                    )}
+                                    style={styles.badge}
+                                >
+                                    <HStack style={styles.supportedPlatform}>
+                                        <Text style={styles.tokenStandard}>
+                                            {tokenStandard}
+                                        </Text>
+                                        <Text>{' - '}</Text>
+                                        <Text
+                                            fontSize={
+                                                STYLE_VARIABLES.smFontSize
+                                            }
+                                        >
+                                            {blockchain}
+                                        </Text>
+                                    </HStack>
+                                </Badge>
+                            ),
+                        )}
+                    </HStack>
                 </AccordionDetails>
             </Accordion.Item>
         </AccordionWrapper>
     );
 }
+
+const styles = StyleSheet.create({
+    supportedPlatforms: {
+        flexWrap: 'wrap',
+        gap: STYLE_VARIABLES.mdSpacing,
+    },
+    badge: {
+        borderRadius: STYLE_VARIABLES.xsRadius,
+    },
+    supportedPlatform: {
+        alignItems: 'center',
+    },
+    tokenStandard: {
+        fontSize: STYLE_VARIABLES.smFontSize,
+        fontWeight: 'bold',
+    },
+});

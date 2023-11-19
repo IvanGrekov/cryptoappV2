@@ -6,7 +6,7 @@ import { STYLE_VARIABLES, THEME } from '../../constants/style';
 import { ICoinDetails } from '../../types/coinDetails';
 
 import Divider from './Divider';
-import { roundMarketCap, roundSupply } from './utils';
+import { roundMarketCap, roundSupply } from './utils/price.utils';
 
 export type TPriceExtraInfoProps = Pick<
     ICoinDetails,

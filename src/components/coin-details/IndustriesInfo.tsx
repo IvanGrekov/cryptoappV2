@@ -5,7 +5,7 @@ import { HStack, Badge } from 'native-base';
 import { STYLE_VARIABLES } from '../../constants/style';
 import { ICoinDetails } from '../../types/coinDetails';
 
-import { getIndustryBadgeColor } from './utils';
+import { getIndustryBadgeColor } from './utils/industries.utils';
 
 type TIndustriesInfoProps = Pick<ICoinDetails, 'assetIndustries'>;
 
@@ -38,6 +38,8 @@ export default function IndustriesInfo({
 
 const styles = StyleSheet.create({
     badgeList: {
+        flexWrap: 'wrap',
+        gap: STYLE_VARIABLES.mdSpacing,
         paddingHorizontal: STYLE_VARIABLES.xsPadding,
     },
     badge: {

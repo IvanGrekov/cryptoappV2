@@ -110,7 +110,9 @@ const getSupportedPlatforms = (
         });
     }
 
-    return result;
+    return result.sort((a, b) =>
+        a.tokenStandard.localeCompare(b.tokenStandard),
+    );
 };
 
 const getProjectLeaders = (

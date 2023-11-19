@@ -11,7 +11,7 @@ import {
     getPriceChangeBadgeColor,
     roundPrice,
     roundPriceChange,
-} from './utils';
+} from './utils/price.utils';
 
 type TPriceInfoProps = Pick<ICoinDetails, 'price' | 'change24h'> &
     TPriceExtraInfoProps;
