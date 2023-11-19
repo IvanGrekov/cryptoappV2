@@ -1,6 +1,6 @@
-import React from 'react';
+import { StyleSheet } from 'react-native';
 
-import { Accordion, HStack, Text } from 'native-base';
+import { Accordion, HStack, Badge, Text } from 'native-base';
 
 import { STYLE_VARIABLES } from '../../constants/style';
 import { IProjectLeader } from '../../types/coinDetails';
@@ -9,6 +9,7 @@ import AccordionDetails from './AccordionDetails';
 import AccordionIcon from './AccordionIcon';
 import AccordionSummary from './AccordionSummary';
 import AccordionWrapper from './AccordionWrapper';
+import { getProjectLeaderColor } from './utils/projectLeaders.utils';
 
 interface IProjectLeadersProps {
     projectLeaders: IProjectLeader[];
@@ -30,19 +31,47 @@ export default function ProjectLeadersProps({
                 </AccordionSummary>
 
                 <AccordionDetails>
-                    {projectLeaders.map(({ leaderType, fullName }) => (
-                        <HStack key={`${leaderType}-${fullName}`}>
-                            <Text fontSize={STYLE_VARIABLES.smFontSize}>
-                                {leaderType}
-                            </Text>
-                            <Text>{' - '}</Text>
-                            <Text fontSize={STYLE_VARIABLES.smFontSize}>
-                                {fullName}
-                            </Text>
-                        </HStack>
-                    ))}
+                    <HStack style={styles.list}>
+                        {projectLeaders.map(({ leaderType, fullName }) => (
+                            <Badge
+                                key={`${leaderType}-${fullName}`}
+                                variant="solid"
+                                colorScheme={getProjectLeaderColor(leaderType)}
+                                style={styles.badge}
+                            >
+                                <HStack style={styles.projectLeader}>
+                                    <Text style={styles.leaderType}>
+                                        {leaderType}
+                                    </Text>
+                                    <Text style={styles.text}>{' - '}</Text>
+                                    <Text style={styles.text}>{fullName}</Text>
+                                </HStack>
+                            </Badge>
+                        ))}
+                    </HStack>
                 </AccordionDetails>
             </Accordion.Item>
         </AccordionWrapper>
     );
 }
+
+const styles = StyleSheet.create({
+    list: {
+        flexWrap: 'wrap',
+        gap: STYLE_VARIABLES.mdSpacing,
+    },
+    badge: {
+        borderRadius: STYLE_VARIABLES.xsRadius,
+    },
+    projectLeader: {
+        alignItems: 'center',
+    },
+    leaderType: {
+        fontWeight: 'bold',
+        textTransform: 'capitalize',
+        color: 'white',
+    },
+    text: {
+        color: 'white',
+    },
+});
