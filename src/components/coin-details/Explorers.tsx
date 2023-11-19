@@ -1,6 +1,6 @@
-import React from 'react';
+import { StyleSheet } from 'react-native';
 
-import { Accordion, HStack, Text } from 'native-base';
+import { Accordion, HStack, Link, Badge } from 'native-base';
 
 import { STYLE_VARIABLES } from '../../constants/style';
 import { IExplorer } from '../../types/coinDetails';
@@ -30,19 +30,31 @@ export default function Explorers({
                 </AccordionSummary>
 
                 <AccordionDetails>
-                    {explorers.map(({ name, url }) => (
-                        <HStack key={name}>
-                            <Text fontSize={STYLE_VARIABLES.smFontSize}>
-                                {name}
-                            </Text>
-                            <Text>{' - '}</Text>
-                            <Text fontSize={STYLE_VARIABLES.smFontSize}>
-                                {url}
-                            </Text>
-                        </HStack>
-                    ))}
+                    <HStack style={styles.list}>
+                        {explorers.map(({ name, url }) => (
+                            <Link key={url} href={url}>
+                                <Badge
+                                    variant="outline"
+                                    colorScheme="info"
+                                    style={styles.badge}
+                                >
+                                    {name}
+                                </Badge>
+                            </Link>
+                        ))}
+                    </HStack>
                 </AccordionDetails>
             </Accordion.Item>
         </AccordionWrapper>
     );
 }
+
+const styles = StyleSheet.create({
+    list: {
+        flexWrap: 'wrap',
+        gap: STYLE_VARIABLES.mdSpacing,
+    },
+    badge: {
+        borderRadius: STYLE_VARIABLES.xsRadius,
+    },
+});

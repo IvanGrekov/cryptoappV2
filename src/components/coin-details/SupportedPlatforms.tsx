@@ -1,4 +1,3 @@
-import React from 'react';
 import { StyleSheet } from 'react-native';
 
 import { Accordion, HStack, Badge, Text } from 'native-base';
@@ -32,7 +31,7 @@ export default function SupportedPlatforms({
                 </AccordionSummary>
 
                 <AccordionDetails>
-                    <HStack style={styles.supportedPlatforms}>
+                    <HStack style={styles.list}>
                         {supportedPlatforms.map(
                             ({ tokenStandard, blockchain }) => (
                                 <Badge
@@ -48,13 +47,7 @@ export default function SupportedPlatforms({
                                             {tokenStandard}
                                         </Text>
                                         <Text>{' - '}</Text>
-                                        <Text
-                                            fontSize={
-                                                STYLE_VARIABLES.smFontSize
-                                            }
-                                        >
-                                            {blockchain}
-                                        </Text>
+                                        <Text>{blockchain}</Text>
                                     </HStack>
                                 </Badge>
                             ),
@@ -67,7 +60,7 @@ export default function SupportedPlatforms({
 }
 
 const styles = StyleSheet.create({
-    supportedPlatforms: {
+    list: {
         flexWrap: 'wrap',
         gap: STYLE_VARIABLES.mdSpacing,
     },
@@ -78,7 +71,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     tokenStandard: {
-        fontSize: STYLE_VARIABLES.smFontSize,
         fontWeight: 'bold',
     },
 });
