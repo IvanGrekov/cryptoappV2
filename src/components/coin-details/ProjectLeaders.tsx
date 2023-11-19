@@ -9,7 +9,6 @@ import AccordionDetails from './AccordionDetails';
 import AccordionIcon from './AccordionIcon';
 import AccordionSummary from './AccordionSummary';
 import AccordionWrapper from './AccordionWrapper';
-import { getProjectLeaderColor } from './utils/projectLeaders.utils';
 
 interface IProjectLeadersProps {
     projectLeaders: IProjectLeader[];
@@ -36,14 +35,10 @@ export default function ProjectLeadersProps({
                             <Badge
                                 key={`${leaderType}-${fullName}`}
                                 variant="solid"
-                                colorScheme={getProjectLeaderColor(leaderType)}
+                                colorScheme="info"
                                 style={styles.badge}
                             >
                                 <HStack style={styles.projectLeader}>
-                                    <Text style={styles.leaderType}>
-                                        {leaderType}
-                                    </Text>
-                                    <Text style={styles.text}>{' - '}</Text>
                                     <Text style={styles.text}>{fullName}</Text>
                                 </HStack>
                             </Badge>
@@ -65,11 +60,6 @@ const styles = StyleSheet.create({
     },
     projectLeader: {
         alignItems: 'center',
-    },
-    leaderType: {
-        fontWeight: 'bold',
-        textTransform: 'capitalize',
-        color: 'white',
     },
     text: {
         color: 'white',

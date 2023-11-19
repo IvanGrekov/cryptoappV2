@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-import { VStack, HStack, Image, Text } from 'native-base';
+import { VStack, HStack, Image, Text, Box } from 'native-base';
 
 import { STYLE_VARIABLES } from '../../constants/style';
 import { ICoinDetails } from '../../types/coinDetails';
@@ -50,13 +50,16 @@ export default function MainInfo({
                 <CoinMarketCapRank rank={marketCapRank} isBig={true} />
             </HStack>
 
-            <HStack
-                space={STYLE_VARIABLES.xsSpacing}
-                style={styles.industriesWrapper}
-            >
-                <IndustriesInfo assetIndustries={assetIndustries} />
+            <HStack space={STYLE_VARIABLES.xsSpacing} style={styles.extraInfo}>
+                {!!assetIndustries && !!assetIndustries.length && (
+                    <Box flexShrink={1}>
+                        <IndustriesInfo assetIndustries={assetIndustries} />
+                    </Box>
+                )}
 
-                <TwitterAccount twitterAccount={twitterAccount} />
+                {!!twitterAccount && (
+                    <TwitterAccount twitterAccount={twitterAccount} />
+                )}
             </HStack>
         </VStack>
     );
@@ -85,7 +88,7 @@ const styles = StyleSheet.create({
         lineHeight: STYLE_VARIABLES.xlFontSize,
         fontWeight: 'bold',
     },
-    industriesWrapper: {
+    extraInfo: {
         justifyContent: 'space-between',
         alignItems: 'center',
     },

@@ -2,18 +2,16 @@ import { StyleSheet } from 'react-native';
 
 import { Box, Link, Image, Badge } from 'native-base';
 
-import { ICoinDetails } from '../../types/coinDetails';
+import { ITwitterAccount } from '../../types/coinDetails';
 import { EImageSizeType } from '../../types/images';
 
-type TTwitterAccountProps = Pick<ICoinDetails, 'twitterAccount'>;
+interface ITwitterAccountProps {
+    twitterAccount: ITwitterAccount;
+}
 
 export default function TwitterAccount({
     twitterAccount,
-}: TTwitterAccountProps): JSX.Element | null {
-    if (!twitterAccount) {
-        return null;
-    }
-
+}: ITwitterAccountProps): JSX.Element {
     const { url, followers } = twitterAccount;
     const followersNumber = Math.round(followers / 1_000);
 

@@ -3,21 +3,18 @@ import { StyleSheet } from 'react-native';
 import { HStack, Badge } from 'native-base';
 
 import { STYLE_VARIABLES } from '../../constants/style';
-import { ICoinDetails } from '../../types/coinDetails';
 
 import { getIndustryBadgeColor } from './utils/industries.utils';
 
-type TIndustriesInfoProps = Pick<ICoinDetails, 'assetIndustries'>;
+interface IIndustriesInfoProps {
+    assetIndustries: string[];
+}
 
 export default function IndustriesInfo({
     assetIndustries,
-}: TIndustriesInfoProps): JSX.Element | null {
-    if (!assetIndustries) {
-        return null;
-    }
-
+}: IIndustriesInfoProps): JSX.Element {
     return (
-        <HStack space={STYLE_VARIABLES.smSpacing} style={styles.badgeList}>
+        <HStack style={styles.badgeList}>
             {assetIndustries.map((industry) => {
                 const colorScheme = getIndustryBadgeColor(industry);
 
@@ -39,7 +36,7 @@ export default function IndustriesInfo({
 const styles = StyleSheet.create({
     badgeList: {
         flexWrap: 'wrap',
-        gap: STYLE_VARIABLES.mdSpacing,
+        gap: STYLE_VARIABLES.lgSpacing,
         paddingHorizontal: STYLE_VARIABLES.xsPadding,
     },
     badge: {
