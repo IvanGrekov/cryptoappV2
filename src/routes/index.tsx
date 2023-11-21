@@ -4,7 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import CoinDetailsScreen from '../components/coin-details-screen/CoinDetailsScreen';
-import CoinListScreenContent from '../components/coin-list-screen/CoinListScreen';
+import CoinListScreen from '../components/coin-list-screen/CoinListScreen';
 import FavoriteListScreen from '../components/favorite-list-screen/FavoriteListScreen';
 import SearchScreen from '../components/search-screen/SearchScreen';
 import { TRootTabsParamList, ERouteNames } from '../types/routes';
@@ -28,7 +28,7 @@ function HomeRoutes({ children }: PropsWithChildren): JSX.Element {
             >
                 <Tab.Screen
                     name={ERouteNames.LIST}
-                    component={CoinListScreenContent}
+                    component={CoinListScreen}
                     options={{
                         headerShown: false,
                     }}

@@ -1,42 +1,20 @@
-import { StyleSheet, RefreshControl } from 'react-native';
-
-import { useNavigation, NavigationProp } from '@react-navigation/native';
-import { ScrollView, VStack, Box } from 'native-base';
-
-import { STYLE_VARIABLES } from '../../constants/style';
 import { useSearchCoin } from '../../hooks/searchCoin.hooks';
-import { TRootTabsParamList, ERouteNames } from '../../types/routes';
-import CoinItem from '../coin-list/CoinItem';
 import EmptyStateIndicator from '../empty-state-indicator/EmptyStateIndicator';
 import ErrorIndicator from '../error-indicator/ErrorIndicator';
 import LoadingIndicator from '../loading-indicator/LoadingIndicator';
 import ScreenContainer from '../screen-container/ScreenContainer';
-import SearchField from '../search-field/SearchField';
+import SearchScreenContent from '../search-screen-content/SearchScreenContent';
 
 export default function SearchScreen(): JSX.Element {
-    const navigation = useNavigation<NavigationProp<TRootTabsParamList>>();
-
     const {
-        searchValue,
         data,
+        searchValue,
         isLoading,
         isRefreshing,
         error,
         onChangeSearchValue,
         refreshCoinDetails,
     } = useSearchCoin();
-
-    const onItemPress = (): void => {
-        if (!data) {
-            return;
-        }
-
-        return navigation.navigate(ERouteNames.DETAILS, {
-            symbol: searchValue,
-            prevPage: ERouteNames.SEARCH,
-            data,
-        });
-    };
 
     return (
         <ScreenContainer>
@@ -50,37 +28,13 @@ export default function SearchScreen(): JSX.Element {
                 <EmptyStateIndicator text="No Search Results" />
             )}
 
-            <ScrollView
-                refreshControl={
-                    <RefreshControl
-                        refreshing={isRefreshing}
-                        onRefresh={refreshCoinDetails}
-                    />
-                }
-            >
-                <VStack space={STYLE_VARIABLES.xsSpacing}>
-                    <Box style={styles.fieldWrapper}>
-                        <SearchField
-                            value={searchValue}
-                            onChangeText={onChangeSearchValue}
-                        />
-                    </Box>
-
-                    {!!data && (
-                        <CoinItem
-                            coin={data}
-                            isSearchList={true}
-                            onItemPress={onItemPress}
-                        />
-                    )}
-                </VStack>
-            </ScrollView>
+            <SearchScreenContent
+                data={data}
+                searchValue={searchValue}
+                isRefreshing={isRefreshing}
+                onChangeSearchValue={onChangeSearchValue}
+                refreshCoinDetails={refreshCoinDetails}
+            />
         </ScreenContainer>
     );
 }
-
-const styles = StyleSheet.create({
-    fieldWrapper: {
-        padding: STYLE_VARIABLES.smPadding,
-    },
-});
