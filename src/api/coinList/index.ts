@@ -28,7 +28,7 @@ export const getCoinsList: TGetCoinsList = ({
     return fetch(`${URL}?tsym=${CURRENCY}&${PAGINATION_PARAMS}`, {
         signal: abortController?.signal,
         headers: {
-            Authorization: `Apikey ${process.env.COIN_LIST_API_KEY}`,
+            Authorization: `Apikey ${Config.COIN_LIST_API_KEY}`,
         },
     })
         .then(async (response) => {
@@ -63,7 +63,7 @@ export const getSymbolList: TGetSymbolList = ({ symbols, abortController }) => {
     return fetch(`${URL}?tsyms=${CURRENCY}&${SYMBOLS_PARAM}`, {
         signal: abortController?.signal,
         headers: {
-            Authorization: `Apikey ${process.env.COIN_LIST_API_KEY}`,
+            Authorization: `Apikey ${Config.COIN_LIST_API_KEY}`,
         },
     })
         .then(async (response) => {
