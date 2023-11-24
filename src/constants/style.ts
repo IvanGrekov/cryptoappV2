@@ -2,10 +2,10 @@ import { extendTheme } from 'native-base';
 
 const COLORS = {
     primary: {
-        900: '#AEDEFC',
+        900: '#F3EEEA',
     },
     primaryOpacity: {
-        900: 'rgba(174, 222, 252, 0.7)',
+        900: 'rgba(243, 238, 234, 0.7)',
     },
     secondary: {
         900: '#164863',
